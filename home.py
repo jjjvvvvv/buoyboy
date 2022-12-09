@@ -5,9 +5,14 @@ from datetime import date, time, datetime
 import pytz
 import plotly.express as px
 
-st.set_page_config(layout='centered')
+st.set_page_config(
+    page_title="The BuoyBoy",
+    page_icon="📡",
+    layout="centered",
+    initial_sidebar_state="auto",
+    )
 
-st.header('BuoyBoy Beta Testing Chart')
+st.header('The BuoyBoy')
 
 df = pd.DataFrame()
 
@@ -18,6 +23,7 @@ SelectedBuoys = st.multiselect("Which buoys do you want to view?",
                               default=buoyList[-3:])
 
 
+@st.cache
 def newBuoyData(selected_buoys):
 
   # create timezone objects for UTC and EST
