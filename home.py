@@ -9,8 +9,7 @@ st.set_page_config(
     page_title="The BuoyBoy",
     page_icon="📡",
     layout="centered",
-    initial_sidebar_state="auto",
-    )
+    initial_sidebar_state="auto")
 
 st.header('The BuoyBoy')
 
@@ -19,8 +18,7 @@ df = pd.DataFrame()
 buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41117]
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
-                               buoyList,
-                              default=buoyList[-3:])
+                               buoyList)
 
 
 @st.cache
