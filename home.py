@@ -1,7 +1,7 @@
 import streamlit as st
 from astropy.io import ascii
 import pandas as pd
-from datetime import date, time, datetime, timezone, timedelta
+from datetime import date, time, datetime
 import pytz
 import plotly.express as px
 
@@ -14,12 +14,12 @@ df = pd.DataFrame()
 buoyList = [44025, 44065, 44017]
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
-                          buoyList,
-                          default=buoyList)
+                               buoyList,
+                               default=buoyList)
 
 
 def newBuoyData(selected_buoys):
-  
+
   # create timezone objects for UTC and EST
   utc_tz = pytz.timezone('UTC')
   est_tz = pytz.timezone('US/Eastern')
@@ -35,7 +35,7 @@ def newBuoyData(selected_buoys):
 
       # create a datetime object in UTC using the date and time objects
       my_datetime = datetime.combine(my_date, my_time)
-      
+
       # set the timezone for the datetime object using the 'tzinfo' attribute
       my_datetime = my_datetime.replace(tzinfo=utc_tz)
 
@@ -51,7 +51,6 @@ def newBuoyData(selected_buoys):
       df.loc[i, 'Date'] = est_datetime.strftime('%Y-%m-%d')
       df.loc[i, 'Time'] = est_datetime.strftime('%I:%M:%S %p')
       df.loc[i, 'SwH'] = swellHeight
-
 
       # increment i and get next buoy
       i += 1
@@ -70,7 +69,6 @@ filtered_df = filtered_df.sort_values('Time')
 # Set the y-axis range to start at 0
 fig = px.line(filtered_df, x='Time', y=SelectedBuoys)
 fig.update_layout(yaxis=dict(title="Swell Height (ft)"))
-
 
 # Display the chart in the app
 st.plotly_chart(fig, use_container_width=True)

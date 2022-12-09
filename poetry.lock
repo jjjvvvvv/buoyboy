@@ -444,6 +444,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "plotly"
+version = "5.11.0"
+description = "An open-source, interactive data visualization library for Python"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+tenacity = ">=6.2.0"
+
+[[package]]
 name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
@@ -786,6 +797,17 @@ validators = ">=0.2"
 watchdog = {version = "*", markers = "platform_system != \"Darwin\""}
 
 [[package]]
+name = "tenacity"
+version = "8.1.0"
+description = "Retry code until it succeeds"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+doc = ["reno", "sphinx", "tornado (>=4.5)"]
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -953,7 +975,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "7f3499d1932b4afc149ed01e4a813f4a3dd26af0e7273de704abc8a4dc541318"
+content-hash = "2f8904e4c6c8ddf84583c8d61254cff6aa0ff41c041f2f8b2b169e7220d3e9f3"
 
 [metadata.files]
 aiohttp = []
@@ -994,6 +1016,7 @@ pandas = []
 parso = []
 pillow = []
 pkgutil-resolve-name = []
+plotly = []
 pluggy = []
 protobuf = []
 pyarrow = []
@@ -1020,6 +1043,7 @@ six = []
 smmap = []
 soupsieve = []
 streamlit = []
+tenacity = []
 toml = []
 tomli = []
 toolz = []
