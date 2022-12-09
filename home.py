@@ -62,8 +62,6 @@ def newBuoyData(selected_buoys):
 
 newBuoyData(SelectedBuoys)
 
-st.subheader('You are viewing the Swell Height for buoys: ' + str(SelectedBuoys))
-
 # Filter the dataframe to only include the selected y columns
 filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
 
