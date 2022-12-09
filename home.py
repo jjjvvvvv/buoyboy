@@ -11,7 +11,7 @@ st.header('BuoyBoy Beta Testing Chart')
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44065, 44017]
+buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41008, 41117]
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
                                buoyList,

@@ -6,7 +6,7 @@ from urllib.request import urlopen
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065]
+buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41008, 41117]
 
 
 def getLatLong(buoyList):
