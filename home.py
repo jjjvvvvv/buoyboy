@@ -14,7 +14,8 @@ df = pd.DataFrame()
 buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41117]
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
-                               buoyList)
+                               buoyList,
+                              default=buoyList[-3:])
 
 
 def newBuoyData(selected_buoys):
