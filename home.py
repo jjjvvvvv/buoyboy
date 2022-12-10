@@ -15,10 +15,10 @@ st.header('The BuoyBoy')
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41117]
+buoyList = [41010, 41009, 41002, 41117]
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
-                               buoyList, default=None)
+                               buoyList, default=buoyList)
 
 
 @st.cache
@@ -60,23 +60,18 @@ def newBuoyData(selected_buoys):
       i += 1
 
 
+newBuoyData(SelectedBuoys)
 
-if len(SelectedBuoys) = 0:
-  st.write('Please choose one or more buoys')
+# Filter the dataframe to only include the selected y columns
+filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
 
-else: 
-  newBuoyData(SelectedBuoys)
-  
-  # Filter the dataframe to only include the selected y columns
-  filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
-  
-  # sort the time column
-  filtered_df = filtered_df.sort_index(ascending=False)
-  
-  # Create the line chart using the filtered dataframe
-  # Set the y-axis range to start at 0
-  fig = px.line(filtered_df, x='Time', y=SelectedBuoys)
-  fig.update_layout(yaxis=dict(title="Swell Height (ft)"))
-  
-  # Display the chart in the app
-  st.plotly_chart(fig, use_container_width=True)
+# sort the time column
+filtered_df = filtered_df.sort_index(ascending=False)
+
+# Create the line chart using the filtered dataframe
+# Set the y-axis range to start at 0
+fig = px.line(filtered_df, x='Time', y=SelectedBuoys)
+fig.update_layout(yaxis=dict(title="Swell Height (ft)"))
+
+# Display the chart in the app
+st.plotly_chart(fig, use_container_width=True)
