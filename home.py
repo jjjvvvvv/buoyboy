@@ -19,7 +19,7 @@ buoyList = [44025, 44017, 44065, 41010, 41002, 41117]
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
                                buoyList,
-                               default=44025)
+                               default=None)
 
 
 def newBuoyData(selected_buoys):
@@ -62,15 +62,13 @@ def newBuoyData(selected_buoys):
 
 if len(SelectedBuoys) == 0:
   st.warning('Please choose one or more buoys')
-  st.dataframe(SelectedBuoys)
-  st.area_chart(SelectedBuoys)
 
 else:
   newBuoyData(SelectedBuoys)
 
   # Filter the dataframe to only include the selected y columns
   filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
-  st.dataframe(filtered_df)
+  # st.dataframe(filtered_df)
 
   # sort the time column
   filtered_df = filtered_df.sort_index(ascending=False)
