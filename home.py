@@ -63,8 +63,7 @@ def newBuoyData(selected_buoys):
 if len(SelectedBuoys) == 0:
   st.warning('Please choose one or more buoys')
 
-  filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
-  st.area_chart(filtered_df)
+  st.area_chart(SelectedBuoys)
 
 else:
   newBuoyData(SelectedBuoys)
