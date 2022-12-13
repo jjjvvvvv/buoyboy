@@ -5,23 +5,23 @@ from datetime import date, time, datetime
 import pytz
 import plotly.express as px
 
-st.set_page_config(
-    page_title="The BuoyBoy",
-    page_icon="📡",
-    layout="centered",
-    initial_sidebar_state="auto")
+st.set_page_config(page_title="The BuoyBoy",
+                   page_icon="📡",
+                   layout="centered",
+                   initial_sidebar_state="auto")
 
 st.header('The BuoyBoy')
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41117]
+buoyList = [44025, 44017, 44065, 41010, 41002, 41117]
+#41009
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
-                               buoyList, default=None)
+                               buoyList,
+                               default=44025)
 
 
-@st.cache
 def newBuoyData(selected_buoys):
 
   # create timezone objects for UTC and EST
@@ -60,23 +60,22 @@ def newBuoyData(selected_buoys):
       i += 1
 
 
-
 if len(SelectedBuoys) == 0:
   st.warning('Please choose one or more buoys')
 
-else: 
+else:
   newBuoyData(SelectedBuoys)
-  
+
   # Filter the dataframe to only include the selected y columns
   filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
-  
+
   # sort the time column
   filtered_df = filtered_df.sort_index(ascending=False)
-  
+
   # Create the line chart using the filtered dataframe
   # Set the y-axis range to start at 0
   fig = px.line(filtered_df, x='Time', y=SelectedBuoys)
   fig.update_layout(yaxis=dict(title="Swell Height (ft)"))
-  
+
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
