@@ -32,7 +32,7 @@ def newBuoyData(selected_buoys):
     data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
 
     i = 0
-    while i < 12:
+    while i < 48:
       # create the date and time objects
       my_date = date(data[i][0], data[i][1], data[i][2])
       my_time = time(data[i][3], data[i][4])
