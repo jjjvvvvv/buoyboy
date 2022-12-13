@@ -66,6 +66,26 @@ def getLatLong(buoyList):
 getLatLong(buoyList)
 
 st.header('Currently serving these buoys')
-st.write('and yes, I am working on a more interactive map...')
+st.write('see status log for updates')
 
 st.map(data=df, zoom=None, use_container_width=True)
+
+# Using object notation
+# Add a sidebar to the app
+with st.form("my_form"):
+   #st.write("Inside the form")
+   slider_val = st.slider("Form slider")
+   checkbox_val = st.checkbox("Form checkbox")
+
+   # Every form must have a submit button.
+   submitted = st.form_submit_button("Submit")
+   if submitted:
+       st.write("slider", slider_val, "checkbox", checkbox_val)
+
+#st.write("Outside the form")
+
+with st.form("home_form"):
+  SelectedBuoys = st.multiselect("Which buoys do you want to view?",
+                               buoyList,
+                               default=44025)
+  

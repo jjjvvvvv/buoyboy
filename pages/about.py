@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.markdown(
-  'Understand whats going on in the water. BuoyBoy helps you make the best decision for the hunt. Simple visuals inform and enhance the quality of the data relayed from NOAA buoys. Understand what is going on in the water in real time, without the speculation and forecasting. Remember - Everything is a forecast until the buoys pick it up.'
+  'Understand whats going on in the water. BuoyBoy helps you make the best decision on the hunt. Simple visuals inform and enhance the quality of the data relayed from NOAA buoys. Understand what is going on in the water in real time, without the speculation and forecasting. Remember - Everything is a forecast until the buoys pick it up.'
 )
 
 st.button("Learn more about Buoy Data")

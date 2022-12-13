@@ -62,7 +62,7 @@ def newBuoyData(selected_buoys):
 
 if len(SelectedBuoys) == 0:
   st.warning('Please choose one or more buoys')
-
+  st.dataframe(SelectedBuoys)
   st.area_chart(SelectedBuoys)
 
 else:
@@ -70,6 +70,7 @@ else:
 
   # Filter the dataframe to only include the selected y columns
   filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
+  st.dataframe(filtered_df)
 
   # sort the time column
   filtered_df = filtered_df.sort_index(ascending=False)
