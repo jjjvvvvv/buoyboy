@@ -47,7 +47,9 @@ def newBuoyData(selected_buoys):
       est_datetime = my_datetime.astimezone(est_tz)
 
       # get first buoy swell height
-      swellHeight = data[i][6] * int(3.28084)
+      swellHeight = data[i][6]
+      # * int(3.28084)
+
       st.write(swellHeight)
       # add buoy number
       df.loc[i, buoy] = swellHeight
