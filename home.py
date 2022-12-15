@@ -14,7 +14,7 @@ st.header('The BuoyBoy')
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41010, 41002, 41117]
+buoyList = [44025, 44017, 44065, 41008, 41002, 41117, 41009, 41010]
 #41009
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",

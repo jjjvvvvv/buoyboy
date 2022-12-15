@@ -6,7 +6,7 @@ from urllib.request import urlopen
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41010, 41009, 41002, 41117]
+buoyList = [44025, 44017, 44065, 41008, 41002, 41117, 41009, 41010]
 
 
 def getLatLong(buoyList):
@@ -70,6 +70,8 @@ st.header('Currently serving these buoys')
 st.write('see status log for updates')
 
 st.map(data=df, zoom=None, use_container_width=True)
+
+st.dataframe(df)
 
 # Using object notation
 # Add a sidebar to the app
