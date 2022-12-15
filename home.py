@@ -80,4 +80,4 @@ else:
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
-st.dataframe(filtered_df)
+  st.dataframe(filtered_df)
