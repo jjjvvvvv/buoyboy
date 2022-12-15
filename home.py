@@ -14,7 +14,7 @@ st.header('The BuoyBoy')
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41002, 41117, 41010, 41009, 41008]
+buoyList = [44025, 44017, 44065, 41002, 41117, 41010]
 # 41009, 41008
 
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
@@ -47,10 +47,7 @@ def newBuoyData(selected_buoys):
       est_datetime = my_datetime.astimezone(est_tz)
 
       # get first buoy swell height
-      swellHeight = data[i][6]
-      # * int(3.28084)
-
-      st.write(swellHeight)
+      swellHeight = data[i][6] * int(3.28084)
       # add buoy number
       df.loc[i, buoy] = swellHeight
 
@@ -83,4 +80,3 @@ else:
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
-  st.dataframe(filtered_df)
