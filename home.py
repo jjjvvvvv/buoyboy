@@ -91,7 +91,7 @@ else:
   df = df.sort_values(by=['Date', 'Time'], ascending=False)
 
   fig = px.line(df, x='Time', y=SelectedBuoys)
-  fig.update_layout(yaxis=dict(title=metric_column))
+  fig.update_layout(yaxis=dict(title=MetricSelect))
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
