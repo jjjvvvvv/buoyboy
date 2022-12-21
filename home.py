@@ -17,18 +17,28 @@ df = pd.DataFrame()
 buoyList = [44025, 44017, 44065, 41002, 41117, 41010]
 # 41009, 41008
 
+metric_column_mapping = {
+  'Swell Height': 'SwH',
+  'Wave Height': 'WvH',
+  'Swell Period': 'SwP',
+  'Swell Direction': 'MWD'
+}
+
 SelectedBuoys = st.multiselect("Which buoys do you want to view?",
                                buoyList,
                                default=None)
+MetricSelect = st.radio("What do you want to measure?",
+                        list(metric_column_mapping.keys()))
 
 
-def newBuoyData(selected_buoys):
+def newBuoyData(selected_buoys, metric):
+  df = pd.DataFrame()
 
-  # create timezone objects for UTC and EST
-  utc_tz = pytz.timezone('UTC')
-  est_tz = pytz.timezone('US/Eastern')
+  for buoy in selected_buoys:
+    # create timezone objects for UTC and EST
+    utc_tz = pytz.timezone('UTC')
+    est_tz = pytz.timezone('US/Eastern')
 
-  for buoy in buoyList:
     data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
 
     i = 0
@@ -46,37 +56,42 @@ def newBuoyData(selected_buoys):
       # convert the datetime to EST
       est_datetime = my_datetime.astimezone(est_tz)
 
-      # get first buoy swell height
-      swellHeight = data[i][6] * int(3.28084)
-      # add buoy number
-      df.loc[i, buoy] = swellHeight
+      # get metric to display
+      if MetricSelect == 'Swell Height':
+        df.loc[i, buoy] = data[i][6] * int(3.28084)
+      # get buoy's wave height
+      elif MetricSelect == 'Wave Height':
+        df.loc[i, buoy] = data[i][5] * int(3.28084)
+      # get buoy's swell period
+      elif MetricSelect == 'Swell Period':
+        df.loc[i, buoy] = data[i][7]
+      # get buoy's median swell direction
+      elif MetricSelect == 'Swell Direction':
+        df.loc[i, buoy] = data[i][14]
 
       # add date column
       df.loc[i, 'Date'] = est_datetime.strftime('%Y-%m-%d')
       df.loc[i, 'Time'] = est_datetime.strftime('%I:%M:%S %p')
-      df.loc[i, 'SwH'] = swellHeight
 
       # increment i and get next buoy
       i += 1
+
+  return df
 
 
 if len(SelectedBuoys) == 0:
   st.warning('Please choose one or more buoys')
 
 else:
-  newBuoyData(SelectedBuoys)
-
-  # Filter the dataframe to only include the selected y columns
-  filtered_df = df[['Date'] + ['Time'] + SelectedBuoys]
-  # st.dataframe(filtered_df)
-
-  # sort the time column
-  filtered_df = filtered_df.sort_index(ascending=False)
+  metric_column = metric_column_mapping[MetricSelect]
+  df = newBuoyData(SelectedBuoys, MetricSelect)
 
   # Create the line chart using the filtered dataframe
   # Set the y-axis range to start at 0
-  fig = px.line(filtered_df, x='Time', y=SelectedBuoys)
-  fig.update_layout(yaxis=dict(title="Swell Height (ft)"))
+  df = df.sort_values(by=['Date', 'Time'], ascending=False)
+
+  fig = px.line(df, x='Time', y=SelectedBuoys)
+  fig.update_layout(yaxis=dict(title=metric_column))
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
