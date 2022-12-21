@@ -69,9 +69,8 @@ def newBuoyData(selected_buoys, metric):
       elif MetricSelect == 'Swell Direction':
         df.loc[i, buoy] = data[i][14]
 
-      # add date column
-      df.loc[i, 'Date'] = est_datetime.strftime('%Y-%m-%d')
-      df.loc[i, 'Time'] = est_datetime.strftime('%I:%M:%S %p')
+      # add datetime column
+      df.loc[i, 'Datetime'] = est_datetime
 
       # increment i and get next buoy
       i += 1
@@ -88,9 +87,9 @@ else:
 
   # Create the line chart using the filtered dataframe
   # Set the y-axis range to start at 0
-  df = df.sort_values(by=['Date', 'Time'], ascending=False)
+  df = df.sort_values(by=['Datetime'], ascending=True)
 
-  fig = px.line(df, x='Time', y=SelectedBuoys)
+  fig = px.line(df, x='Datetime', y=SelectedBuoys)
   fig.update_layout(yaxis=dict(title=MetricSelect))
 
   # Display the chart in the app
