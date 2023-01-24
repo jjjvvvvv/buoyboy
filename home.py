@@ -64,7 +64,10 @@ def newBuoyData(selected_buoys, metric):
         df.loc[i, buoy] = data[i][5] * int(3.28084)
       # get buoy's swell period
       elif MetricSelect == 'Swell Period':
-        df.loc[i, buoy] = data[i][7]
+        try:
+          df.loc[i, buoy] = pd.to_numeric(data[i][7], errors='coerce')
+        except ValueError:
+          pass
       # get buoy's median swell direction
       elif MetricSelect == 'Swell Direction':
         df.loc[i, buoy] = data[i][14]
@@ -75,6 +78,11 @@ def newBuoyData(selected_buoys, metric):
       # increment i and get next buoy
       i += 1
 
+      # error handling incomplete Swell Period Readings
+  if df.isna().any().any():
+    st.warning(
+      "Invalid value(s) found for buoy(s) in this report. These values do not display."
+    )
   return df
 
 
