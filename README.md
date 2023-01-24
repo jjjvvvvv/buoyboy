@@ -7,9 +7,6 @@ README
 
 read buoy information on a visual chart. buoys update every 30 min.
 
-- status log (Spring 23)
-- openstartup
-
 ## home
 
 view buoy reading chart.
