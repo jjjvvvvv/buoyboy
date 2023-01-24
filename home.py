@@ -7,8 +7,8 @@ import plotly.express as px
 
 st.set_page_config(page_title="The BuoyBoy",
                    page_icon="📡",
-                   layout="centered",
-                   initial_sidebar_state="auto")
+                   layout="wide",
+                   initial_sidebar_state="expanded")
 
 df = pd.DataFrame()
 
