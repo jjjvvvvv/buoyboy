@@ -12,8 +12,7 @@ st.set_page_config(page_title="The BuoyBoy",
 
 df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41002, 41117, 41010]
-# 41009, 41008
+buoyList = [44025, 44017, 44065, 41002, 41117, 41010, 41009, 41008]
 
 metric_column_mapping = {
   'Swell Height': 'SwH',
@@ -98,11 +97,9 @@ else:
   df = df.sort_values(by=['Datetime'], ascending=True)
 
   fig = px.line(df, x='Datetime', y=SelectedBuoys)
-  fig.update_layout(
-    yaxis=dict(title=MetricSelect),
-    xaxis_title='Time',
-    xaxis=dict(tickformat='%I:%M %p'),
-  )
+  fig.update_layout(yaxis=dict(title=MetricSelect),
+                    xaxis_title='Time',
+                    xaxis=dict(tickformat='%I:%M %p'))
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
