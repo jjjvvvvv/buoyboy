@@ -10,8 +10,6 @@ st.set_page_config(page_title="The BuoyBoy",
                    layout="centered",
                    initial_sidebar_state="auto")
 
-st.header('The BuoyBoy')
-
 df = pd.DataFrame()
 
 buoyList = [44025, 44017, 44065, 41002, 41117, 41010]
@@ -24,11 +22,13 @@ metric_column_mapping = {
   'Swell Direction': 'MWD'
 }
 
-SelectedBuoys = st.multiselect("Which buoys do you want to view?",
-                               buoyList,
-                               default=None)
-MetricSelect = st.radio("What do you want to measure?",
-                        list(metric_column_mapping.keys()))
+st.sidebar.subheader("Settings")
+
+SelectedBuoys = st.sidebar.multiselect("Which buoys do you want to view?",
+                                       buoyList,
+                                       default=None)
+MetricSelect = st.sidebar.radio("What do you want to measure?",
+                                list(metric_column_mapping.keys()))
 
 
 def newBuoyData(selected_buoys, metric):
@@ -98,7 +98,11 @@ else:
   df = df.sort_values(by=['Datetime'], ascending=True)
 
   fig = px.line(df, x='Datetime', y=SelectedBuoys)
-  fig.update_layout(yaxis=dict(title=MetricSelect))
+  fig.update_layout(
+    yaxis=dict(title=MetricSelect),
+    xaxis_title='Time',
+    xaxis=dict(tickformat='%I:%M %p'),
+  )
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
