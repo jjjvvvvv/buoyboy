@@ -13,7 +13,7 @@ view buoy reading chart.
 
 ## map
 
-see which buoys are available.
+see which buoys are available. (not available at the moment)
 
 ## search
 
@@ -22,7 +22,7 @@ see table of NOAA buoys, link to .rss feed, and Title
 
 reccomended to search your buoys by selecting any buoy in the table (not availabe on mobile), and then pressing ctrl+f to search. search by keyword in title, number, or .rss 
 
-# on the horizon
+## on the horizon
 
 - intereactive maps
 - UX focused form to create a 'local' experience: test on NE, SE, Cali, HA || map to pick buoys --> user's buoy list --> interactive multiline chart
