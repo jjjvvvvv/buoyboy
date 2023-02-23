@@ -1,109 +1,91 @@
-Buoy, URL, Title 
-41001,https://www.ndbc.noaa.gov/data/latest_obs/41001.rss,"""NDBC - Station 41001 - EAST HATTERAS - 150 NM East of Cape Hatteras Observations"""
-41002,https://www.ndbc.noaa.gov/data/latest_obs/41002.rss,"""NDBC - Station 41002 - SOUTH HATTERAS - 225 NM South of Cape Hatteras Observations"""
-41004,https://www.ndbc.noaa.gov/data/latest_obs/41004.rss,"""NDBC - Station 41004 - EDISTO - 41 NM Southeast of Charleston, SC Observations"""
-41008,https://www.ndbc.noaa.gov/data/latest_obs/41008.rss,"""NDBC - Station 41008 - GRAYS REEF - 40 NM Southeast of Savannah, GA Observations"""
-41009,https://www.ndbc.noaa.gov/data/latest_obs/41009.rss,"""NDBC - Station 41009 - CANAVERAL 20 NM East of Cape Canaveral, FL Observations"""
-41010,https://www.ndbc.noaa.gov/data/latest_obs/41010.rss,"""NDBC - Station 41010 - CANAVERAL EAST - 120NM East of Cape Canaveral Observations"""
-41013,https://www.ndbc.noaa.gov/data/latest_obs/41013.rss,"""NDBC - Station 41013 - Frying Pan Shoals, NC Observations"""
-41025,https://www.ndbc.noaa.gov/data/latest_obs/41025.rss,"""NDBC - Station 41025 - Diamond Shoals, NC Observations"""
-41040,https://www.ndbc.noaa.gov/data/latest_obs/41040.rss,"""NDBC - The page that you requested is not found"""
-41041,https://www.ndbc.noaa.gov/data/latest_obs/41041.rss,"""NDBC - The page that you requested is not found"""
-41043,https://www.ndbc.noaa.gov/data/latest_obs/41043.rss,"""NDBC - Station 41043 - NE PUERTO RICO - 170 NM NNE of San Juan, PR Observations"""
-41044,https://www.ndbc.noaa.gov/data/latest_obs/41044.rss,"""NDBC - Station 41044 - NE ST MARTIN - 330 NM NE St Martin Is Observations"""
-41046,https://www.ndbc.noaa.gov/data/latest_obs/41046.rss,"""NDBC - Station 41046 - EAST BAHAMAS - 335 NM East of San Salvador Is,  Bahamas Observations"""
-41047,https://www.ndbc.noaa.gov/data/latest_obs/41047.rss,"""NDBC - Station 41047 - NE BAHAMAS - 350 NM ENE of Nassau, Bahamas Observations"""
-41048,https://www.ndbc.noaa.gov/data/latest_obs/41048.rss,"""NDBC - Station 41048 - WEST BERMUDA - 240 NM West of Bermuda Observations"""
-41049,https://www.ndbc.noaa.gov/data/latest_obs/41049.rss,"""NDBC - Station 41049 - SOUTH BERMUDA - 300 NM SSE of Bermuda Observations"""
-42001,https://www.ndbc.noaa.gov/data/latest_obs/42001.rss,"""NDBC - Station 42001 - MID GULF - 180 nm South of Southwest Pass, LA Observations"""
-42002,https://www.ndbc.noaa.gov/data/latest_obs/42002.rss,"""NDBC - Station 42002 - WEST GULF - 207 NM East of Brownsville, TX Observations"""
-42003,https://www.ndbc.noaa.gov/data/latest_obs/42003.rss,"""NDBC - The page that you requested is not found"""
-42012,https://www.ndbc.noaa.gov/data/latest_obs/42012.rss,"""NDBC - Station 42012 - ORANGE BEACH - 44 NM SE of Mobile, AL Observations"""
-42019,https://www.ndbc.noaa.gov/data/latest_obs/42019.rss,"""NDBC - Station 42019 - FREEPORT, TX - 60 NM South of Freeport, TX Observations"""
-42020,https://www.ndbc.noaa.gov/data/latest_obs/42020.rss,"""NDBC - Station 42020 - CORPUS CHRISTI, TX - 60NM SSE of Corpus Christi, TX Observations"""
-42035,https://www.ndbc.noaa.gov/data/latest_obs/42035.rss,"""NDBC - The page that you requested is not found"""
-42036,https://www.ndbc.noaa.gov/data/latest_obs/42036.rss,"""NDBC - Station 42036 - WEST TAMPA  - 112 NM WNW of Tampa, FL Observations"""
-42039,https://www.ndbc.noaa.gov/data/latest_obs/42039.rss,"""NDBC - Station 42039 - PENSACOLA - 115NM SSE of Pensacola, FL Observations"""
-42040,https://www.ndbc.noaa.gov/data/latest_obs/42040.rss,"""NDBC - Station 42040 - LUKE OFFSHORE TEST PLATFORM - 63 NM South of Dauphin Island, AL Observations"""
-42055,https://www.ndbc.noaa.gov/data/latest_obs/42055.rss,"""NDBC - Station 42055 - BAY OF CAMPECHE - 214 NM NE of Veracruz, MX Observations"""
-42056,https://www.ndbc.noaa.gov/data/latest_obs/42056.rss,"""NDBC - Station 42056 - Yucatan Basin - 120 NM ESE of Cozumel, MX Observations"""
-42057,https://www.ndbc.noaa.gov/data/latest_obs/42057.rss,"""NDBC - The page that you requested is not found"""
-42058,https://www.ndbc.noaa.gov/data/latest_obs/42058.rss,"""NDBC - The page that you requested is not found"""
-42059,https://www.ndbc.noaa.gov/data/latest_obs/42059.rss,"""NDBC - Station 42059 - Eastern Caribbean Sea - 180 NM SSW of Ponce, PR Observations"""
-42060,https://www.ndbc.noaa.gov/data/latest_obs/42060.rss,"""NDBC - Station 42060 - Caribbean Valley - 63 NM WSW of Montserrat Observations"""
-42501,https://www.ndbc.noaa.gov/data/latest_obs/42501.rss,"""NDBC - The page that you requested is not found"""
-42503,https://www.ndbc.noaa.gov/data/latest_obs/42503.rss,"""NDBC - The page that you requested is not found"""
-44005,https://www.ndbc.noaa.gov/data/latest_obs/44005.rss,"""NDBC - Station 44005 - GULF OF MAINE - 78 NM East of Portsmouth, NH Observations"""
-44007,https://www.ndbc.noaa.gov/data/latest_obs/44007.rss,"""NDBC - Station 44007 - PORTLAND - 12 NM Southeast of Portland,ME Observations"""
-44008,https://www.ndbc.noaa.gov/data/latest_obs/44008.rss,"""NDBC - Station 44008 - NANTUCKET 54 NM Southeast of Nantucket Observations"""
-44009,https://www.ndbc.noaa.gov/data/latest_obs/44009.rss,"""NDBC - Station 44009 - DELAWARE BAY 26 NM Southeast of Cape May, NJ Observations"""
-44011,https://www.ndbc.noaa.gov/data/latest_obs/44011.rss,"""NDBC - Station 44011 - GEORGES BANK 170 NM East of Hyannis, MA Observations"""
-44013,https://www.ndbc.noaa.gov/data/latest_obs/44013.rss,"""NDBC - Station 44013 - BOSTON 16 NM East of Boston, MA Observations"""
-44014,https://www.ndbc.noaa.gov/data/latest_obs/44014.rss,"""NDBC - The page that you requested is not found"""
-44017,https://www.ndbc.noaa.gov/data/latest_obs/44017.rss,"""NDBC - Station 44017 - MONTAUK POINT - 23 NM SSW of Montauk Point, NY Observations"""
-44018,https://www.ndbc.noaa.gov/data/latest_obs/44018.rss,"""NDBC - Station 44018 - CAPE COD - 9 NM North of Provincetown, MA Observations"""
-44020,https://www.ndbc.noaa.gov/data/latest_obs/44020.rss,"""NDBC - Station 44020 - NANTUCKET SOUND Observations"""
-44025,https://www.ndbc.noaa.gov/data/latest_obs/44025.rss,"""NDBC - Station 44025 - LONG ISLAND - 30 NM South of Islip, NY Observations"""
-44027,https://www.ndbc.noaa.gov/data/latest_obs/44027.rss,"""NDBC - Station 44027 - Jonesport, ME - 20 NM SE of Jonesport, ME Observations"""
-44065,https://www.ndbc.noaa.gov/data/latest_obs/44065.rss,"""NDBC - Station 44065 - New York Harbor Entrance - 15 NM SE of Breezy Point , NY Observations"""
-44066,https://www.ndbc.noaa.gov/data/latest_obs/44066.rss,"""NDBC - Station 44066 - Texas Tower #4 - 75 NM East of Long Beach, NJ Observations"""
-45001,https://www.ndbc.noaa.gov/data/latest_obs/45001.rss,"""NDBC - The page that you requested is not found"""
-45002,https://www.ndbc.noaa.gov/data/latest_obs/45002.rss,"""NDBC - The page that you requested is not found"""
-45003,https://www.ndbc.noaa.gov/data/latest_obs/45003.rss,"""NDBC - Station 45003 - NORTH HURON - 32NM Northeast of Alpena, MI Observations"""
-45004,https://www.ndbc.noaa.gov/data/latest_obs/45004.rss,"""NDBC - The page that you requested is not found"""
-45005,https://www.ndbc.noaa.gov/data/latest_obs/45005.rss,"""NDBC - Station 45005 - WEST ERIE - 16 NM NW of Lorain, OH Observations"""
-45006,https://www.ndbc.noaa.gov/data/latest_obs/45006.rss,"""NDBC - The page that you requested is not found"""
-45007,https://www.ndbc.noaa.gov/data/latest_obs/45007.rss,"""NDBC - The page that you requested is not found"""
-45008,https://www.ndbc.noaa.gov/data/latest_obs/45008.rss,"""NDBC - Station 45008 - SOUTH HURON - 43NM East of Oscoda, MI Observations"""
-45012,https://www.ndbc.noaa.gov/data/latest_obs/45012.rss,"""NDBC - Station 45012 - EAST Lake Ontario  - 20NM North Northeast of Rochester, NY Observations"""
-46001,https://www.ndbc.noaa.gov/data/latest_obs/46001.rss,"""NDBC - The page that you requested is not found"""
-46002,https://www.ndbc.noaa.gov/data/latest_obs/46002.rss,"""NDBC - Station 46002 - WEST OREGON - 275NM West of Coos Bay, OR Observations"""
-46005,https://www.ndbc.noaa.gov/data/latest_obs/46005.rss,"""NDBC - Station 46005 - WEST WASHINGTON - 300NM West of Aberdeen, WA Observations"""
-46006,https://www.ndbc.noaa.gov/data/latest_obs/46006.rss,"""NDBC - Station 46006 - SOUTHEAST PAPA - 600NM West of Eureka, CA Observations"""
-46011,https://www.ndbc.noaa.gov/data/latest_obs/46011.rss,"""NDBC - Station 46011 - SANTA MARIA - 21NM NW of Point Arguello, CA Observations"""
-46012,https://www.ndbc.noaa.gov/data/latest_obs/46012.rss,"""NDBC - Station 46012 - HALF MOON BAY - 24NM SSW of San Francisco, CA Observations"""
-46013,https://www.ndbc.noaa.gov/data/latest_obs/46013.rss,"""NDBC - Station 46013 - BODEGA BAY - 48NM NW of San Francisco, CA Observations"""
-46014,https://www.ndbc.noaa.gov/data/latest_obs/46014.rss,"""NDBC - Station 46014 - PT ARENA - 19NM North of Point Arena, CA Observations"""
-46015,https://www.ndbc.noaa.gov/data/latest_obs/46015.rss,"""NDBC - The page that you requested is not found"""
-46022,https://www.ndbc.noaa.gov/data/latest_obs/46022.rss,"""NDBC - Station 46022 - EEL RIVER - 17NM WSW of Eureka, CA Observations"""
-46025,https://www.ndbc.noaa.gov/data/latest_obs/46025.rss,"""NDBC - Station 46025 - Santa Monica Basin - 33NM WSW of Santa Monica, CA Observations"""
-46026,https://www.ndbc.noaa.gov/data/latest_obs/46026.rss,"""NDBC - Station 46026 - SAN FRANCISCO - 18NM West of San Francisco, CA Observations"""
-46027,https://www.ndbc.noaa.gov/data/latest_obs/46027.rss,"""NDBC - Station 46027 - ST GEORGES - 8 NM NW of Crescent City, CA Observations"""
-46028,https://www.ndbc.noaa.gov/data/latest_obs/46028.rss,"""NDBC - Station 46028 - CAPE SAN MARTIN - 55NM West NW of Morro Bay, CA Observations"""
-46029,https://www.ndbc.noaa.gov/data/latest_obs/46029.rss,"""NDBC - Station 46029 - COLUMBIA RIVER BAR - 20NM West of Columbia River Mouth Observations"""
-46035,https://www.ndbc.noaa.gov/data/latest_obs/46035.rss,"""NDBC - Station 46035 - CENTRAL BERING SEA - 310 NM North of Adak, AK Observations"""
-46041,https://www.ndbc.noaa.gov/data/latest_obs/46041.rss,"""NDBC - Station 46041 - CAPE ELIZABETH - 45NM NW of Aberdeen, WA Observations"""
-46042,https://www.ndbc.noaa.gov/data/latest_obs/46042.rss,"""NDBC - Station 46042 - MONTEREY - 27NM WNW of Monterey, CA Observations"""
-46047,https://www.ndbc.noaa.gov/data/latest_obs/46047.rss,"""NDBC - Station 46047 - TANNER BANK - 121 NM West of San Diego, CA Observations"""
-46050,https://www.ndbc.noaa.gov/data/latest_obs/46050.rss,"""NDBC - Station 46050 - STONEWALL BANK - 20NM West of Newport, OR Observations"""
-46053,https://www.ndbc.noaa.gov/data/latest_obs/46053.rss,"""NDBC - Station 46053 - EAST SANTA BARBARA  - 12NM Southwest of Santa Barbara, CA Observations"""
-46054,https://www.ndbc.noaa.gov/data/latest_obs/46054.rss,"""NDBC - Station 46054 - WEST SANTA BARBARA  38 NM West of Santa Barbara, CA Observations"""
-46059,https://www.ndbc.noaa.gov/data/latest_obs/46059.rss,"""NDBC - Station 46059 - WEST CALIFORNIA - 357NM West of San Francisco, CA Observations"""
-46060,https://www.ndbc.noaa.gov/data/latest_obs/46060.rss,"""NDBC - Station 46060 - WEST ORCA BAY - 8NM NW of Hinchinbrook Is., AK Observations"""
-46061,https://www.ndbc.noaa.gov/data/latest_obs/46061.rss,"""NDBC - Station 46061 - Seal Rocks - Between Montague and Hinchinbrook Islands, AK Observations"""
-46066,https://www.ndbc.noaa.gov/data/latest_obs/46066.rss,"""NDBC - Station 46066 - SOUTH KODIAK - 310NM SSW of Kodiak, AK Observations"""
-46069,https://www.ndbc.noaa.gov/data/latest_obs/46069.rss,"""NDBC - Station 46069 - SOUTH SANTA ROSA IS. CA Observations"""
-46070,https://www.ndbc.noaa.gov/data/latest_obs/46070.rss,"""NDBC - The page that you requested is not found"""
-46071,https://www.ndbc.noaa.gov/data/latest_obs/46071.rss,"""NDBC - Station 46071 - WESTERN ALEUTIANS - 14NM SOUTH OF AMCHITKA IS, AK Observations"""
-46072,https://www.ndbc.noaa.gov/data/latest_obs/46072.rss,"""NDBC - Station 46072 - CENTRAL ALEUTIANS 230 NM SW Dutch Harbor Observations"""
-46073,https://www.ndbc.noaa.gov/data/latest_obs/46073.rss,"""NDBC - Station 46073 - SOUTHEAST BERING SEA - 205 NM WNW of Dutch Harbor, AK Observations"""
-46075,https://www.ndbc.noaa.gov/data/latest_obs/46075.rss,"""NDBC - Station 46075 - SHUMAGIN ISLANDS - 85NM South of Sand Point, AK Observations"""
-46076,https://www.ndbc.noaa.gov/data/latest_obs/46076.rss,"""NDBC - Station 46076 - CAPE CLEARE - 17 NM South of Montague Is,  AK Observations"""
-46077,https://www.ndbc.noaa.gov/data/latest_obs/46077.rss,"""NDBC - Station 46077 - SHELIKOF STRAIT, AK Observations"""
-46078,https://www.ndbc.noaa.gov/data/latest_obs/46078.rss,"""NDBC - Station 46078 - ALBATROSS BANK - 104NM South of Kodiak Is., AK Observations"""
-46080,https://www.ndbc.noaa.gov/data/latest_obs/46080.rss,"""NDBC - Station 46080 - PORTLOCK BANK- 76 NM ENE of Kodiak, AK Observations"""
-46081,https://www.ndbc.noaa.gov/data/latest_obs/46081.rss,"""NDBC - Station 46081 - Western Prince William Sound Observations"""
-46082,https://www.ndbc.noaa.gov/data/latest_obs/46082.rss,"""NDBC - Station 46082 - Cape Suckling - 35 NM SE of Kayak Is, AK Observations"""
-46083,https://www.ndbc.noaa.gov/data/latest_obs/46083.rss,"""NDBC - Station 46083 - FAIRWEATHER GROUND - 105 NM West  of Juneau, AK Observations"""
-46084,https://www.ndbc.noaa.gov/data/latest_obs/46084.rss,"""NDBC - Station 46084 - CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK Observations"""
-46085,https://www.ndbc.noaa.gov/data/latest_obs/46085.rss,"""NDBC - The page that you requested is not found"""
-46086,https://www.ndbc.noaa.gov/data/latest_obs/46086.rss,"""NDBC - Station 46086 - SAN CLEMENTE BASIN - 27NM SE Of San Clemente Is, CA Observations"""
-46087,https://www.ndbc.noaa.gov/data/latest_obs/46087.rss,"""NDBC - Station 46087 - Neah Bay - 6 NM North of Cape Flattery, WA (Traffic Separation Lighted Buoy) Observations"""
-46088,https://www.ndbc.noaa.gov/data/latest_obs/46088.rss,"""NDBC - Station 46088 - NEW DUNGENESS - 17 NM NE of Port Angeles, WA Observations"""
-46089,https://www.ndbc.noaa.gov/data/latest_obs/46089.rss,"""NDBC - Station 46089 - TILLAMOOK, OR - 85 NM WNW of Tillamook, OR Observations"""
-51000,https://www.ndbc.noaa.gov/data/latest_obs/51000.rss,"""NDBC - Station 51000 - NORTHERN HAWAII ONE - 245NM NE of Honolulu HI Observations"""
-51001,https://www.ndbc.noaa.gov/data/latest_obs/51001.rss,"""NDBC - Station 51001 - NORTHWESTERN HAWAII ONE - 188 NM NW of Kauai Island, HI Observations"""
-51002,https://www.ndbc.noaa.gov/data/latest_obs/51002.rss,"""NDBC - Station 51002 - SOUTHWEST HAWAII - 215NM SSW of Hilo, HI Observations"""
-51003,https://www.ndbc.noaa.gov/data/latest_obs/51003.rss,"""NDBC - Station 51003 - WESTERN  HAWAII - 205 NM SW of Honolulu, HI Observations"""
-51004,https://www.ndbc.noaa.gov/data/latest_obs/51004.rss,"""NDBC - Station 51004 - SOUTHEAST HAWAII - 205 NM Southeast of Hilo, HI Observations"""
-51101,https://www.ndbc.noaa.gov/data/latest_obs/51101.rss,"""NDBC - Station 51101 - NORTHWESTERN HAWAII TWO - 186 NM NW of Kauai Is., HI   Observations"""
+buoy,url,name,lat,lon
+41001,https://www.ndbc.noaa.gov/data/latest_obs/41001.rss,"EAST HATTERAS - 150 NM East of Cape Hatteras Observations""",34.715,-72.24666667
+41002,https://www.ndbc.noaa.gov/data/latest_obs/41002.rss,"SOUTH HATTERAS - 225 NM South of Cape Hatteras Observations""",31.75833333,-74.93666667
+41004,https://www.ndbc.noaa.gov/data/latest_obs/41004.rss,"EDISTO - 41 NM Southeast of Charleston, SC Observations""",32.50166667,-79.09833333
+41008,https://www.ndbc.noaa.gov/data/latest_obs/41008.rss,"GRAYS REEF - 40 NM Southeast of Savannah, GA Observations""",31.4,-80.86666667
+41009,https://www.ndbc.noaa.gov/data/latest_obs/41009.rss,"CANAVERAL 20 NM East of Cape Canaveral, FL Observations""",28.50666667,-80.185
+41010,https://www.ndbc.noaa.gov/data/latest_obs/41010.rss,"CANAVERAL EAST - 120NM East of Cape Canaveral Observations""",28.87666667,-78.485
+41013,https://www.ndbc.noaa.gov/data/latest_obs/41013.rss,"Frying Pan Shoals, NC Observations""",33.44166667,-77.76333333
+41025,https://www.ndbc.noaa.gov/data/latest_obs/41025.rss,"Diamond Shoals, NC Observations""",35.01,-75.455
+41043,https://www.ndbc.noaa.gov/data/latest_obs/41043.rss,"NE PUERTO RICO - 170 NM NNE of San Juan, PR Observations""",21.02666667,-64.79333333
+41044,https://www.ndbc.noaa.gov/data/latest_obs/41044.rss,"NE ST MARTIN - 330 NM NE St Martin Is Observations""",21.58333333,-58.63
+41046,https://www.ndbc.noaa.gov/data/latest_obs/41046.rss,"EAST BAHAMAS - 335 NM East of San Salvador Is,  Bahamas Observations""",23.82166667,-68.38333333
+41047,https://www.ndbc.noaa.gov/data/latest_obs/41047.rss,"NE BAHAMAS - 350 NM ENE of Nassau, Bahamas Observations""",27.465,-71.45166667
+41048,https://www.ndbc.noaa.gov/data/latest_obs/41048.rss,"WEST BERMUDA - 240 NM West of Bermuda Observations""",31.83166667,-69.57333333
+41049,https://www.ndbc.noaa.gov/data/latest_obs/41049.rss,"SOUTH BERMUDA - 300 NM SSE of Bermuda Observations""",27.49,-62.93666667
+42001,https://www.ndbc.noaa.gov/data/latest_obs/42001.rss,"MID GULF - 180 nm South of Southwest Pass, LA Observations""",25.92,-89.67333333
+42002,https://www.ndbc.noaa.gov/data/latest_obs/42002.rss,"WEST GULF - 207 NM East of Brownsville, TX Observations""",26.055,-93.64666667
+42012,https://www.ndbc.noaa.gov/data/latest_obs/42012.rss,"ORANGE BEACH - 44 NM SE of Mobile, AL Observations""",30.06,-87.54833333
+42019,https://www.ndbc.noaa.gov/data/latest_obs/42019.rss,"FREEPORT, TX - 60 NM South of Freeport, TX Observations""",27.91,-95.345
+42020,https://www.ndbc.noaa.gov/data/latest_obs/42020.rss,"CORPUS CHRISTI, TX - 60NM SSE of Corpus Christi, TX Observations""",26.96833333,-96.69166667
+42036,https://www.ndbc.noaa.gov/data/latest_obs/42036.rss,"WEST TAMPA  - 112 NM WNW of Tampa, FL Observations""",28.50166667,-84.50833333
+42039,https://www.ndbc.noaa.gov/data/latest_obs/42039.rss,"PENSACOLA - 115NM SSE of Pensacola, FL Observations""",28.78666667,-86.00666667
+42040,https://www.ndbc.noaa.gov/data/latest_obs/42040.rss,"LUKE OFFSHORE TEST PLATFORM - 63 NM South of Dauphin Island, AL Observations""",29.20666667,-88.23666667
+42055,https://www.ndbc.noaa.gov/data/latest_obs/42055.rss,"BAY OF CAMPECHE - 214 NM NE of Veracruz, MX Observations""",22.12333333,-93.94
+42056,https://www.ndbc.noaa.gov/data/latest_obs/42056.rss,"Yucatan Basin - 120 NM ESE of Cozumel, MX Observations""",19.82,-84.945
+42059,https://www.ndbc.noaa.gov/data/latest_obs/42059.rss,"Eastern Caribbean Sea - 180 NM SSW of Ponce, PR Observations""",15.3,-67.48333333
+42060,https://www.ndbc.noaa.gov/data/latest_obs/42060.rss,"Caribbean Valley - 63 NM WSW of Montserrat Observations""",16.43333333,-63.32833333
+44005,https://www.ndbc.noaa.gov/data/latest_obs/44005.rss,"GULF OF MAINE - 78 NM East of Portsmouth, NH Observations""",43.2,-69.12666667
+44007,https://www.ndbc.noaa.gov/data/latest_obs/44007.rss,"PORTLAND - 12 NM Southeast of Portland,ME Observations""",43.525,-70.14
+44008,https://www.ndbc.noaa.gov/data/latest_obs/44008.rss,"NANTUCKET 54 NM Southeast of Nantucket Observations""",40.495,-69.25
+44009,https://www.ndbc.noaa.gov/data/latest_obs/44009.rss,"DELAWARE BAY 26 NM Southeast of Cape May, NJ Observations""",38.46,-74.69166667
+44011,https://www.ndbc.noaa.gov/data/latest_obs/44011.rss,"GEORGES BANK 170 NM East of Hyannis, MA Observations""",41.09333333,-66.56166667
+44013,https://www.ndbc.noaa.gov/data/latest_obs/44013.rss,"BOSTON 16 NM East of Boston, MA Observations""",42.345,-70.65166667
+44017,https://www.ndbc.noaa.gov/data/latest_obs/44017.rss,"MONTAUK POINT - 23 NM SSW of Montauk Point, NY Observations""",,
+44018,https://www.ndbc.noaa.gov/data/latest_obs/44018.rss,"CAPE COD - 9 NM North of Provincetown, MA Observations""",42.20333333,-70.15333333
+44020,https://www.ndbc.noaa.gov/data/latest_obs/44020.rss,"NANTUCKET SOUND Observations""",41.49333333,-70.27833333
+44025,https://www.ndbc.noaa.gov/data/latest_obs/44025.rss,"LONG ISLAND - 30 NM South of Islip, NY Observations""",40.25166667,-73.165
+44027,https://www.ndbc.noaa.gov/data/latest_obs/44027.rss,"Jonesport, ME - 20 NM SE of Jonesport, ME Observations""",44.28333333,-67.3
+44065,https://www.ndbc.noaa.gov/data/latest_obs/44065.rss,"New York Harbor Entrance - 15 NM SE of Breezy Point , NY Observations""",40.37,-73.70333333
+44066,https://www.ndbc.noaa.gov/data/latest_obs/44066.rss,"Texas Tower #4 - 75 NM East of Long Beach, NJ Observations""",39.61833333,-72.645
+45003,https://www.ndbc.noaa.gov/data/latest_obs/45003.rss,"NORTH HURON - 32NM Northeast of Alpena, MI Observations""",,
+45005,https://www.ndbc.noaa.gov/data/latest_obs/45005.rss,"WEST ERIE - 16 NM NW of Lorain, OH Observations""",,
+45008,https://www.ndbc.noaa.gov/data/latest_obs/45008.rss,"SOUTH HURON - 43NM East of Oscoda, MI Observations""",,
+45012,https://www.ndbc.noaa.gov/data/latest_obs/45012.rss,"EAST Lake Ontario  - 20NM North Northeast of Rochester, NY Observations""",,
+46002,https://www.ndbc.noaa.gov/data/latest_obs/46002.rss,"WEST OREGON - 275NM West of Coos Bay, OR Observations""",42.66166667,-130.5066667
+46005,https://www.ndbc.noaa.gov/data/latest_obs/46005.rss,"WEST WASHINGTON - 300NM West of Aberdeen, WA Observations""",46.13333333,-131.0783333
+46006,https://www.ndbc.noaa.gov/data/latest_obs/46006.rss,"SOUTHEAST PAPA - 600NM West of Eureka, CA Observations""",40.765,-137.3766667
+46011,https://www.ndbc.noaa.gov/data/latest_obs/46011.rss,"SANTA MARIA - 21NM NW of Point Arguello, CA Observations""",34.93666667,-120.9983333
+46012,https://www.ndbc.noaa.gov/data/latest_obs/46012.rss,"HALF MOON BAY - 24NM SSW of San Francisco, CA Observations""",37.355,-122.8816667
+46013,https://www.ndbc.noaa.gov/data/latest_obs/46013.rss,"BODEGA BAY - 48NM NW of San Francisco, CA Observations""",38.235,-123.3166667
+46014,https://www.ndbc.noaa.gov/data/latest_obs/46014.rss,"PT ARENA - 19NM North of Point Arena, CA Observations""",39.23166667,-123.9733333
+46022,https://www.ndbc.noaa.gov/data/latest_obs/46022.rss,"EEL RIVER - 17NM WSW of Eureka, CA Observations""",,
+46025,https://www.ndbc.noaa.gov/data/latest_obs/46025.rss,"Santa Monica Basin - 33NM WSW of Santa Monica, CA Observations""",33.755,-119.045
+46026,https://www.ndbc.noaa.gov/data/latest_obs/46026.rss,"SAN FRANCISCO - 18NM West of San Francisco, CA Observations""",37.75333333,-122.8383333
+46027,https://www.ndbc.noaa.gov/data/latest_obs/46027.rss,"ST GEORGES - 8 NM NW of Crescent City, CA Observations""",41.84,-124.3816667
+46028,https://www.ndbc.noaa.gov/data/latest_obs/46028.rss,"CAPE SAN MARTIN - 55NM West NW of Morro Bay, CA Observations""",35.77,-121.9033333
+46029,https://www.ndbc.noaa.gov/data/latest_obs/46029.rss,"COLUMBIA RIVER BAR - 20NM West of Columbia River Mouth Observations""",46.16333333,-124.4866667
+46035,https://www.ndbc.noaa.gov/data/latest_obs/46035.rss,"CENTRAL BERING SEA - 310 NM North of Adak, AK Observations""",57.015,-177.7033333
+46041,https://www.ndbc.noaa.gov/data/latest_obs/46041.rss,"CAPE ELIZABETH - 45NM NW of Aberdeen, WA Observations""",47.35166667,-124.74
+46042,https://www.ndbc.noaa.gov/data/latest_obs/46042.rss,"MONTEREY - 27NM WNW of Monterey, CA Observations""",36.785,-122.3966667
+46047,https://www.ndbc.noaa.gov/data/latest_obs/46047.rss,"TANNER BANK - 121 NM West of San Diego, CA Observations""",32.38833333,-119.525
+46050,https://www.ndbc.noaa.gov/data/latest_obs/46050.rss,"STONEWALL BANK - 20NM West of Newport, OR Observations""",44.66833333,-124.5466667
+46053,https://www.ndbc.noaa.gov/data/latest_obs/46053.rss,"EAST SANTA BARBARA  - 12NM Southwest of Santa Barbara, CA Observations""",34.24,-119.8383333
+46054,https://www.ndbc.noaa.gov/data/latest_obs/46054.rss,"WEST SANTA BARBARA  38 NM West of Santa Barbara, CA Observations""",34.27333333,-120.4683333
+46059,https://www.ndbc.noaa.gov/data/latest_obs/46059.rss,"WEST CALIFORNIA - 357NM West of San Francisco, CA Observations""",38.05333333,-129.9666667
+46060,https://www.ndbc.noaa.gov/data/latest_obs/46060.rss,"WEST ORCA BAY - 8NM NW of Hinchinbrook Is., AK Observations""",,
+46061,https://www.ndbc.noaa.gov/data/latest_obs/46061.rss,"Seal Rocks - Between Montague and Hinchinbrook Islands, AK Observations""",60.23833333,-146.8333333
+46066,https://www.ndbc.noaa.gov/data/latest_obs/46066.rss,"SOUTH KODIAK - 310NM SSW of Kodiak, AK Observations""",52.765,-155.0083333
+46069,https://www.ndbc.noaa.gov/data/latest_obs/46069.rss,"SOUTH SANTA ROSA IS. CA Observations""",33.67666667,-120.2133333
+46071,https://www.ndbc.noaa.gov/data/latest_obs/46071.rss,"WESTERN ALEUTIANS - 14NM SOUTH OF AMCHITKA IS, AK Observations""",,
+46072,https://www.ndbc.noaa.gov/data/latest_obs/46072.rss,"CENTRAL ALEUTIANS 230 NM SW Dutch Harbor Observations""",51.66666667,-172.115
+46073,https://www.ndbc.noaa.gov/data/latest_obs/46073.rss,"SOUTHEAST BERING SEA - 205 NM WNW of Dutch Harbor, AK Observations""",55.00833333,-172.0116667
+46075,https://www.ndbc.noaa.gov/data/latest_obs/46075.rss,"SHUMAGIN ISLANDS - 85NM South of Sand Point, AK Observations""",53.96833333,-160.7933333
+46076,https://www.ndbc.noaa.gov/data/latest_obs/46076.rss,"CAPE CLEARE - 17 NM South of Montague Is,  AK Observations""",59.47166667,-148.0083333
+46077,https://www.ndbc.noaa.gov/data/latest_obs/46077.rss,"SHELIKOF STRAIT, AK Observations""",57.86833333,-154.2116667
+46078,https://www.ndbc.noaa.gov/data/latest_obs/46078.rss,"ALBATROSS BANK - 104NM South of Kodiak Is., AK Observations""",55.55833333,-152.64
+46080,https://www.ndbc.noaa.gov/data/latest_obs/46080.rss,"PORTLOCK BANK- 76 NM ENE of Kodiak, AK Observations""",57.94833333,-150.0416667
+46081,https://www.ndbc.noaa.gov/data/latest_obs/46081.rss,"Western Prince William Sound Observations""",60.80166667,-148.2833333
+46082,https://www.ndbc.noaa.gov/data/latest_obs/46082.rss,"Cape Suckling - 35 NM SE of Kayak Is, AK Observations""",59.67,-143.3533333
+46083,https://www.ndbc.noaa.gov/data/latest_obs/46083.rss,"FAIRWEATHER GROUND - 105 NM West  of Juneau, AK Observations""",58.27,-138.0183333
+46084,https://www.ndbc.noaa.gov/data/latest_obs/46084.rss,"CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK Observations""",56.62166667,-136.1016667
+46086,https://www.ndbc.noaa.gov/data/latest_obs/46086.rss,"SAN CLEMENTE BASIN - 27NM SE Of San Clemente Is, CA Observations""",32.49833333,-118.0516667
+46087,https://www.ndbc.noaa.gov/data/latest_obs/46087.rss,"Neah Bay - 6 NM North of Cape Flattery, WA (Traffic Separation Lighted Buoy) Observations""",48.49333333,-124.7266667
+46088,https://www.ndbc.noaa.gov/data/latest_obs/46088.rss,"NEW DUNGENESS - 17 NM NE of Port Angeles, WA Observations""",48.33166667,-123.1783333
+46089,https://www.ndbc.noaa.gov/data/latest_obs/46089.rss,"TILLAMOOK, OR - 85 NM WNW of Tillamook, OR Observations""",45.935,-125.7933333
+51000,https://www.ndbc.noaa.gov/data/latest_obs/51000.rss,"NORTHERN HAWAII ONE - 245NM NE of Honolulu HI Observations""",23.52833333,-153.7916667
+51001,https://www.ndbc.noaa.gov/data/latest_obs/51001.rss,"NORTHWESTERN HAWAII ONE - 188 NM NW of Kauai Island, HI Observations""",24.45166667,-162.0083333
+51002,https://www.ndbc.noaa.gov/data/latest_obs/51002.rss,"SOUTHWEST HAWAII - 215NM SSW of Hilo, HI Observations""",17.04166667,-157.7466667
+51003,https://www.ndbc.noaa.gov/data/latest_obs/51003.rss,"WESTERN  HAWAII - 205 NM SW of Honolulu, HI Observations""",19.19666667,-160.6383333
+51004,https://www.ndbc.noaa.gov/data/latest_obs/51004.rss,"SOUTHEAST HAWAII - 205 NM Southeast of Hilo, HI Observations""",17.53833333,-152.23
+51101,https://www.ndbc.noaa.gov/data/latest_obs/51101.rss,"NORTHWESTERN HAWAII TWO - 186 NM NW of Kauai Is., HI   Observations""",24.35833333,-162.0816667
