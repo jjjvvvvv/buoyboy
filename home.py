@@ -30,6 +30,7 @@ MetricSelect = st.sidebar.radio("What do you want to measure?",
                                 list(metric_column_mapping.keys()))
 
 
+@st.cache_data
 def newBuoyData(selected_buoys, metric):
   df = pd.DataFrame()
 
@@ -103,4 +104,3 @@ else:
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
-  st.line_chart(df)
