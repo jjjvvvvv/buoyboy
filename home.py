@@ -10,7 +10,6 @@ st.set_page_config(page_title="The BuoyBoy",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
-
 # Need a way to update buoy List every now and then...
 
 buoydf = pd.read_csv('buoylist.csv')
@@ -105,4 +104,3 @@ else:
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
-  st.write(SelectedBuoys)
