@@ -97,7 +97,7 @@ else:
   # Set the y-axis range to start at 0
   df = df.sort_values(by=['Datetime'], ascending=True)
 
-  fig = px.line(df, x='Datetime', y=SelectedBuoys)
+  fig = px.line(df, x='Datetime', y=SelectedBuoys, markers=True)
   fig.update_layout(yaxis=dict(title=MetricSelect),
                     xaxis_title='Time',
                     xaxis=dict(tickformat='%I:%M %p'))
