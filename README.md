@@ -27,5 +27,5 @@ reccomended to search your buoys by selecting any buoy in the table (not availab
 - intereactive maps
 - UX focused form to create a 'local' experience: test on NE, SE, Cali, HA || map to pick buoys --> user's buoy list --> interactive multiline chart
 - multiline toggle buoys on and off, toggle swh, wvh, swp, steepness, swd/mwt deg (NOT CHART)
-- sms customized notifications
-- add .txt file information
+- sms customized notifications (to have notifications a database needs to be built and maintained in order to provide readings)
+- add NBDC .txt file information

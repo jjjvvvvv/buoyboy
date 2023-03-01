@@ -10,9 +10,11 @@ st.set_page_config(page_title="The BuoyBoy",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
-df = pd.DataFrame()
 
-buoyList = [44025, 44017, 44065, 41002, 41117, 41010, 41009, 41008]
+# Need a way to update buoy List every now and then...
+
+buoydf = pd.read_csv('buoylist.csv')
+buoydf = buoydf['buoy'].tolist()
 
 metric_column_mapping = {
   'Swell Height': 'SwH',
@@ -24,7 +26,7 @@ metric_column_mapping = {
 st.sidebar.subheader("Settings")
 
 SelectedBuoys = st.sidebar.multiselect("Which buoys do you want to view?",
-                                       buoyList,
+                                       buoydf,
                                        default=None)
 MetricSelect = st.sidebar.radio("What do you want to measure?",
                                 list(metric_column_mapping.keys()))
@@ -103,3 +105,4 @@ else:
 
   # Display the chart in the app
   st.plotly_chart(fig, use_container_width=True)
+  st.write(SelectedBuoys)
