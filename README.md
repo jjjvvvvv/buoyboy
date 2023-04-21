@@ -3,13 +3,17 @@ A better way to digest NOAA Buoy Data
 
 README
 
-## Buoy Readings
+## buoy readings
 
-read buoy information on a visual chart. buoys update every 30 min.
+read buoy information on a visual chart. buoys update about every 30 min.
 
 ## home
 
 view buoy reading chart.
+
+- Swell Height
+- Wave Height
+- Swell Direction
 
 ## map
 
@@ -25,7 +29,5 @@ reccomended to search your buoys by selecting any buoy in the table (not availab
 ## on the horizon
 
 - intereactive maps
-- UX focused form to create a 'local' experience: test on NE, SE, Cali, HA || map to pick buoys --> user's buoy list --> interactive multiline chart
-- multiline toggle buoys on and off, toggle swh, wvh, swp, steepness, swd/mwt deg (NOT CHART)
 - sms customized notifications (to have notifications a database needs to be built and maintained in order to provide readings)
 - add NBDC .txt file information
