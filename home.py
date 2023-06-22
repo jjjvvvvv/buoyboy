@@ -109,9 +109,9 @@ def new_buoy_data(selected_buoys, metric):
 
       # error handling incomplete Swell Period Readings
     if df.isna().any().any():
-    st.warning(
-      "Invalid value(s) found for buoy(s) in this report. These values do not display."
-    )
+        st.warning(
+           "Invalid value(s) found for buoy(s) in this report. These values do not display."
+           )
     return df
 
 
