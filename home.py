@@ -35,21 +35,20 @@ metric_column_mapping = {
 
 st.sidebar.subheader("Settings")
 
-# make a list of strings equal to 'buoy' + : + 'name'. Make sure to convert buoys to string
+# make a list of strings equal to 'buoy' + : + 'name'
 buoy_name_list = [
   name + "(" + str(buoy) + ")" for buoy, name in buoy_name_mapping.items()
 ]
 
-SelectedBuoys = st.sidebar.multiselect("Which buoys do you want to view?",
+SelectedBuoys = st.multiselect("Which buoys do you want to view?",
                                        buoy_name_list,
                                        default=None)
 
 # create a list of selected buoys based on the user's selection
 SelectedBuoys = [buoy.split('(')[1].split(')')[0] for buoy in SelectedBuoys]
 
-MetricSelect = st.sidebar.radio("What do you want to measure?",
+MetricSelect = st.radio("What do you want to measure?",
                                 list(metric_column_mapping.keys()))
-
 
 def new_buoy_data(selected_buoys, metric):
     """
