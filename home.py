@@ -13,8 +13,7 @@ import plotly.express as px
 
 st.set_page_config(page_title="The BuoyBoy 📡",
                    page_icon="📡",
-                   layout="wide",
-                   initial_sidebar_state="expanded")
+                   layout="wide")
 
 # need a way to update buoy List every now and then...
 
@@ -32,8 +31,6 @@ metric_column_mapping = {
   'Swell Period': 'SwP',
   'Swell Direction': 'MWD'
 }
-
-st.sidebar.subheader("Settings")
 
 # make a list of strings equal to 'buoy' + : + 'name'
 buoy_name_list = [
