@@ -1,7 +1,7 @@
+from datetime import date, time, datetime
 import streamlit as st
 from astropy.io import ascii
 import pandas as pd
-from datetime import date, time, datetime
 import pytz
 import plotly.express as px
 
@@ -18,7 +18,7 @@ buoydf = pd.read_csv('buoylist.csv')
 
 buoy_name_mapping = {}
 for index, row in buoydf.iterrows():
-  buoy_name_mapping[row['buoy']] = row['name']
+    buoy_name_mapping[row['buoy']] = row['name']
 
 metric_column_mapping = {
   'Swell Height': 'SwH',
@@ -61,14 +61,14 @@ def new_buoy_data(selected_buoys, metric):
 
     for buoy in selected_buoys:
       # create timezone objects for UTC and EST
-      utc_tz = pytz.timezone('UTC')
-      est_tz = pytz.timezone('US/Eastern')
+        utc_tz = pytz.timezone('UTC')
+        est_tz = pytz.timezone('US/Eastern')
 
-      data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
+        data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
 
-      i = 0
+        i = 0
 
-      # Change while loop to adjust how many hours are shown in plots
+        # Change while loop to adjust how many hours are shown in plots
 
     while i < 72:
 
