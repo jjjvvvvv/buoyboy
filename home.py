@@ -46,18 +46,29 @@ MetricSelect = st.sidebar.radio("What do you want to measure?",
 
 
 def new_buoy_data(selected_buoys, metric):
-  df = pd.DataFrame()
+    """
+    Process the selected buoys and metric to retrieve new buoy data.
 
-  for buoy in selected_buoys:
-    # create timezone objects for UTC and EST
-    utc_tz = pytz.timezone('UTC')
-    est_tz = pytz.timezone('US/Eastern')
+    Parameters:
+        selected_buoys (Any): The selected buoys to process.
+        metric (Any): The metric to use for retrieving the data.
 
-    data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
+    Returns:
+        DataFrame: The resulting DataFrame containing the new buoy data.
+    """
 
-    i = 0
+    df = pd.DataFrame()
 
-    # Change while loop to adjust how many hours are shown in plots
+    for buoy in selected_buoys:
+      # create timezone objects for UTC and EST
+      utc_tz = pytz.timezone('UTC')
+      est_tz = pytz.timezone('US/Eastern')
+
+      data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
+
+      i = 0
+
+      # Change while loop to adjust how many hours are shown in plots
 
     while i < 72:
 
@@ -97,28 +108,28 @@ def new_buoy_data(selected_buoys, metric):
       i += 1
 
       # error handling incomplete Swell Period Readings
-  if df.isna().any().any():
+    if df.isna().any().any():
     st.warning(
       "Invalid value(s) found for buoy(s) in this report. These values do not display."
     )
-  return df
+    return df
 
 
 if len(SelectedBuoys) == 0:
-  st.warning('Please choose one or more buoys')
+    st.warning('Please choose one or more buoys')
 
 else:
-  metric_column = metric_column_mapping[MetricSelect]
-  df = new_buoy_data(SelectedBuoys, MetricSelect)
+    metric_column = metric_column_mapping[MetricSelect]
+    df = new_buoy_data(SelectedBuoys, MetricSelect)
 
-  # Create the line chart using the filtered dataframe
-  # Set the y-axis range to start at 0
-  df = df.sort_values(by=['Datetime'], ascending=True)
+    # Create the line chart using the filtered dataframe
+    # Set the y-axis range to start at 0
+    df = df.sort_values(by=['Datetime'], ascending=True)
 
-  fig = px.line(df, x='Datetime', y=SelectedBuoys, markers=True)
-  fig.update_layout(yaxis=dict(title=MetricSelect),
+    fig = px.line(df, x='Datetime', y=SelectedBuoys, markers=True)
+    fig.update_layout(yaxis=dict(title=MetricSelect),
                     xaxis_title='Time',
                     xaxis=dict(tickformat='%m/%d/%Y'))
 
-  # Display the chart in the app
-  st.plotly_chart(fig, use_container_width=True)
+    # Display the chart in the app
+    st.plotly_chart(fig, use_container_width=True)

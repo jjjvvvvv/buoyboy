@@ -29,14 +29,6 @@ python-versions = ">=3.6"
 [package.dependencies]
 frozenlist = ">=1.1.0"
 
-[[package]]
-name = "altair"
-version = "4.2.0"
-description = "Altair: A declarative statistical visualization library for Python."
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
 [package.dependencies]
 entrypoints = "*"
 jinja2 = "*"
