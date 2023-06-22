@@ -72,46 +72,45 @@ def new_buoy_data(selected_buoys, metric):
 
     while i < 72:
 
-      # create the date and time objects
-      my_date = date(data[i][0], data[i][1], data[i][2])
-      my_time = time(data[i][3], data[i][4])
+        # create the date and time objects
+        my_date = date(data[i][0], data[i][1], data[i][2])
+        my_time = time(data[i][3], data[i][4])
 
-      # create a datetime object in UTC using the date and time objects
-      my_datetime = datetime.combine(my_date, my_time)
+        # create a datetime object in UTC using the date and time objects
+        my_datetime = datetime.combine(my_date, my_time)
 
-      # set the timezone for the datetime object using the 'tzinfo' attribute
-      my_datetime = my_datetime.replace(tzinfo=utc_tz)
+        # set the timezone for the datetime object using the 'tzinfo' attribute
+        my_datetime = my_datetime.replace(tzinfo=utc_tz)
 
-      # convert the datetime to EST
-      est_datetime = my_datetime.astimezone(est_tz)
+        # convert the datetime to EST
+        est_datetime = my_datetime.astimezone(est_tz)
 
-      # get metric to display
-      if MetricSelect == 'Swell Height':
-        df.loc[i, buoy] = data[i][6] * int(3.28084)
-      # get buoy's wave height
-      elif MetricSelect == 'Wave Height':
-        df.loc[i, buoy] = data[i][5] * int(3.28084)
-      # get buoy's swell period
-      elif MetricSelect == 'Swell Period':
-        try:
-          df.loc[i, buoy] = pd.to_numeric(data[i][7], errors='coerce')
-        except ValueError:
-          pass
-      # get buoy's median swell direction
-      elif MetricSelect == 'Swell Direction':
-        df.loc[i, buoy] = data[i][14]
+        # get metric to display
+        if MetricSelect == 'Swell Height':
+          df.loc[i, buoy] = data[i][6] * int(3.28084)
+        # get buoy's wave height
+        elif MetricSelect == 'Wave Height':
+          df.loc[i, buoy] = data[i][5] * int(3.28084)
+        # get buoy's swell period
+        elif MetricSelect == 'Swell Period':
+          try:
+            df.loc[i, buoy] = pd.to_numeric(data[i][7], errors='coerce')
+          except ValueError:
+            pass
+        # get buoy's median swell direction
+        elif MetricSelect == 'Swell Direction':
+          df.loc[i, buoy] = data[i][14]
 
-      # add datetime column
-      df.loc[i, 'Datetime'] = est_datetime
+        # add datetime column
+        df.loc[i, 'Datetime'] = est_datetime
 
-      # increment i and get next buoy
-      i += 1
+        # increment i and get next buoy
+        i += 1
 
-      # error handling incomplete Swell Period Readings
+        # error handling incomplete Swell Period Readings
     if df.isna().any().any():
         st.warning(
-           "Invalid value(s) found for buoy(s) in this report. These values do not display."
-           )
+           "Invalid value(s) found for buoy(s) in this report. These values do not display.")             )
     return df
 
 
