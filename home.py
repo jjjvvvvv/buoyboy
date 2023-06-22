@@ -1,3 +1,9 @@
+"""
+THE BUOYBOY
+Github Codespaces Test
+
+"""
+
 from datetime import date, time, datetime
 import streamlit as st
 from astropy.io import ascii
@@ -5,7 +11,7 @@ import pandas as pd
 import pytz
 import plotly.express as px
 
-st.set_page_config(page_title="The BuoyBoy",
+st.set_page_config(page_title="The BuoyBoy 📡",
                    page_icon="📡",
                    layout="wide",
                    initial_sidebar_state="expanded")
@@ -109,8 +115,7 @@ def new_buoy_data(selected_buoys, metric):
 
         # error handling incomplete Swell Period Readings
     if df.isna().any().any():
-        st.warning(
-           "Invalid value(s) found for buoy(s) in this report. These values do not display.")             )
+        st.warning("Invalid value(s) found for buoy(s) in this report. These values do not display.")
     return df
 
 
