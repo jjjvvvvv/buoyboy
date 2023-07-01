@@ -70,9 +70,8 @@ def new_buoy_data(selected_buoys, metric):
 
         i = 0
 
-        # Change while loop to adjust how many hours are shown in plots
-
-    while i < 72:
+    # Change while loop to adjust how many hours are shown in plots
+    while i < 48:
 
         # create the date and time objects
         my_date = date(data[i][0], data[i][1], data[i][2])
