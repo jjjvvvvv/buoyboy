@@ -9,7 +9,6 @@ import streamlit as st
 from astropy.io import ascii
 import pandas as pd
 import pytz
-import plotly.express as px
 
 st.set_page_config(page_title="The BuoyBoy", page_icon="📡", layout="wide")
 
