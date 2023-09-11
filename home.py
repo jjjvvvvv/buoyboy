@@ -126,6 +126,4 @@ else:
     # Set the y-axis range to start at 0
     df = df.sort_values(by=["Datetime"], ascending=True)
 
-    st.line_chart(df, x="Datetime")
-
-    st.write(df)
+    st.line_chart(df, x="Time")
