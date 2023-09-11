@@ -101,8 +101,8 @@ def new_buoy_data(selected_buoys, metric):
             elif metric == "Swell Direction":
                 df.loc[i, buoy] = data[i][14]
 
-            # add datetime column WAS EST_DATETIME
-            df.loc[i, "Datetime"] = my_datetime
+            # add datetime column
+            df.loc[i, "Datetime"] = est_datetime
 
             # increment i and get next hour's reading
             i += 1
