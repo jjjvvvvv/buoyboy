@@ -1,7 +1,5 @@
 """
 THE BUOYBOY
-Github Codespaces Test
-UPDATE
 """
 
 from datetime import date, time, datetime
@@ -34,12 +32,16 @@ buoy_name_list = [
     name + "(" + str(buoy) + ")" for buoy, name in buoy_name_mapping.items()
 ]
 
+# LAYOUT 
+
 col1, col2 = st.columns(2)
 
 with col1:
     SelectedBuoys = st.multiselect(
         "Which buoy(s) do you want to view?", buoy_name_list, default=None
     )
+    if len(SelectedBuoys) == 0:
+        st.warning("Please choose one or more buoys")
 
 # creates a list of selected buoys based on the user's selection
 SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
@@ -47,12 +49,11 @@ SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
 with col2:
     MetricSelect = st.radio(
         "What do you want to measure?",
-        list(metric_column_mapping.keys()),
-        horizontal=True,
+        list(metric_column_mapping.keys())
     )
 
 
-def new_buoy_data(selected_buoys, metric):
+def new_buoy_data(selected_buoys, metric, hours):
     """
     Process the selected buoys and metric to retrieve new buoy data.
 
@@ -72,21 +73,24 @@ def new_buoy_data(selected_buoys, metric):
 
         data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
 
+        # create a slider to determine how many loops to run
+
+        # create a counter variable
+
         i = 0
 
-        while i < 48:
+        while i < hours:
             # create the date and time objects
-            my_date = date(data[i][0], data[i][1], data[i][2])
-            my_time = time(data[i][3], data[i][4])
-
-            # create a datetime object in UTC using the date and time objects
-            my_datetime = datetime.combine(my_date, my_time)
+            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=utc_tz)
 
             # set the timezone for the datetime object using the 'tzinfo' attribute
             my_datetime = my_datetime.replace(tzinfo=utc_tz)
 
             # convert the datetime to EST
             est_datetime = my_datetime.astimezone(est_tz)
+
+            # add datetime column
+            df.loc[i, "Time"] = est_datetime
 
             # get metric to display
             if metric == "Swell Height":
@@ -101,9 +105,6 @@ def new_buoy_data(selected_buoys, metric):
             elif metric == "Swell Direction":
                 df.loc[i, buoy] = data[i][14]
 
-            # add datetime column
-            df.loc[i, "Datetime"] = est_datetime
-
             # increment i and get next hour's reading
             i += 1
 
@@ -115,17 +116,22 @@ def new_buoy_data(selected_buoys, metric):
     return df
 
 
-if len(SelectedBuoys) == 0:
-    st.warning("Please choose one or more buoys")
 
-else:
+if len(SelectedBuoys) == 0:
+    st.stop()
+
+else: 
+
+    col1, col2, col3 = st.columns(3)
+    with col2:
+        hours_choice = st.radio("How many hours?", [24, 48, 72, 128, 238], horizontal=True)
+    
+
     metric_column = metric_column_mapping[MetricSelect]
-    df = new_buoy_data(SelectedBuoys, MetricSelect)
+    df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
 
     # Create the line chart using the filtered dataframe
     # Set the y-axis range to start at 0
-    df = df.sort_values(by=["Datetime"], ascending=True)
+    df = df.sort_values(by=["Time"], ascending=True)
 
-    st.line_chart(df, x="Datetime")
-
-    st.write(df)
+    st.line_chart(df, x="Time", y=SelectedBuoys, use_container_width=True)
