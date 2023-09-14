@@ -66,7 +66,7 @@ def new_buoy_data(selected_buoys, metric, hours):
     Returns:
         DataFrame: The resulting DataFrame containing the new buoy data.
     """
-    maindf = pd.DataFrame()
+    df = pd.DataFrame()
 
     for buoy in selected_buoys:
         # create timezone objects for UTC and EST
