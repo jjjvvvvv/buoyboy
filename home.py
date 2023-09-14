@@ -14,12 +14,12 @@ st.set_page_config(page_title="The BuoyBoy", page_icon="📡", layout="wide")
 
 # TODO: need a way to update buoy list periodically...
 
-buoydf = pd.read_csv("buoylist.csv")
+df = pd.read_csv("buoylist.csv")
 
 # TODO: create a dictionary to map buoys to their names
 
 buoy_name_mapping = {}
-for index, row in buoydf.iterrows():
+for index, row in df.iterrows():
     buoy_name_mapping[row["buoy"]] = row["name"]
 
 metric_column_mapping = {
