@@ -123,12 +123,9 @@ if len(SelectedBuoys) == 0:
     st.stop()
 
 else: 
-
-    col1, col2, col3 = st.columns(3)
-    with col2:
-        hours_choice = st.radio("How many hours?", [24, 48, 72, 128], horizontal=True)
     
-
+    hours_choice = st.radio("How many hours?", [24, 48, 72, 128], horizontal=True)
+    
     metric_column = metric_column_mapping[MetricSelect]
     df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
 
@@ -137,3 +134,5 @@ else:
     df = df.sort_values(by=["Time"], ascending=True)
 
     st.line_chart(df, x="Time", y=SelectedBuoys, use_container_width=True)
+
+    st.sidebar.map(data=buoydf, zoom=None, use_container_width=True)
