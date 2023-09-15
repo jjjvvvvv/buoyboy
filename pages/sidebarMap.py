@@ -22,6 +22,17 @@ buoy_name_mapping = {}
 for index, row in df.iterrows():
     buoy_name_mapping[row["buoy"]] = row["name"]
 
+# Remove extra " at the end of the name
+
+buoy_name_list = list(buoy_name_mapping.values())
+
+# Remove extra " at the end of the names in buoy_name_list
+# use enumerate to get the index and value of each item in the list
+
+for index, value in enumerate(buoy_name_list):
+    buoy_name_list[index] = value[:-1]
+
+
 metric_column_mapping = {
     "Swell Height": "SwH",
     "Wave Height": "WvH",
@@ -29,31 +40,25 @@ metric_column_mapping = {
     "Swell Direction": "MWD",
 }
 
-# makes a list of strings equal to 'buoy' + : + 'name'
-buoy_name_list = [
-    name + "(" + str(buoy) + ")" for buoy, name in buoy_name_mapping.items()
-]
-
 # LAYOUT 
 
 col1, col2 = st.columns(2)
 
 with col1:
     SelectedBuoys = st.multiselect(
-        "Which buoy(s) do you want to view?", buoy_name_list, default=None
+        "Which buoy(s) do you want to view?", buoy_name_mapping.values(), default=None
     )
     if len(SelectedBuoys) == 0:
         st.warning("Please choose one or more buoys")
 
 # creates a list of selected buoys based on the user's selection
-SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
+SelectedBuoys = [buoy for buoy in buoy_name_mapping if buoy_name_mapping[buoy] in SelectedBuoys]
 
 with col2:
     MetricSelect = st.radio(
         "What do you want to measure?",
         list(metric_column_mapping.keys())
     )
-
 
 def new_buoy_data(selected_buoys, metric, hours):
     """
@@ -62,6 +67,7 @@ def new_buoy_data(selected_buoys, metric, hours):
     Parameters:
         selected_buoys (Any): The selected buoys to process.
         metric (Any): The metric to use for retrieving the data.
+        hours (Any): The number of hours to retrieve data for.
 
     Returns:
         DataFrame: The resulting DataFrame containing the new buoy data.
@@ -83,7 +89,7 @@ def new_buoy_data(selected_buoys, metric, hours):
 
         while i < hours:
             # create the date and time objects
-            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=utc_tz)
+            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4])
 
             # set the timezone for the datetime object using the 'tzinfo' attribute
             my_datetime = my_datetime.replace(tzinfo=utc_tz)
@@ -135,23 +141,23 @@ def new_buoy_data(selected_buoys, metric, hours):
 if len(SelectedBuoys) == 0:
     st.stop()
 
-else: 
-    
+else:
+
+    # rewrite SelectedBuoys as a string
+
+    SelectedBuoys = [str(buoy) for buoy in SelectedBuoys]
+
     hours_choice = st.radio("How many hours?", [24, 48, 72, 128], horizontal=True)
-    
     metric_column = metric_column_mapping[MetricSelect]
     df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
 
     # Create the line chart using the filtered dataframe
     # Set the y-axis range to start at 0
-    df = df.sort_values(by=["Time"], ascending=True)
+    buoydf = df.sort_values(by=["Time"], ascending=True)
 
-    st.line_chart(df, x="Time", y=SelectedBuoys, use_container_width=True)
+    st.line_chart(data=buoydf, x="Time", y=SelectedBuoys, use_container_width=True)
 
-    st.sidebar.subheader('Active buoys')
-
-
- # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # SIDEBAR MAP # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
     # Add a sidebar map that uses the selected buoys to highlight them on the map
     # Use the sidebar to display the dataframe with the selected buoys highlighted
@@ -172,7 +178,6 @@ else:
     # rewrite all buoys in buoy column as strings
 
     df['buoy'] = df['buoy'].astype(str)
-
 
     # filter df to only include the selected buoys
 

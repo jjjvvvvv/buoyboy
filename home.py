@@ -66,16 +66,10 @@ def new_buoy_data(selected_buoys, metric, hours):
     Returns:
         DataFrame: The resulting DataFrame containing the new buoy data.
     """
-    maindf = pd.DataFrame()
+    df = pd.DataFrame()
 
     for buoy in selected_buoys:
-        # create timezone objects for UTC and EST
-        utc_tz = pytz.timezone("UTC")
-        est_tz = pytz.timezone("US/Eastern")
-
         data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
-
-        # create a slider to determine how many loops to run
 
         # create a counter variable
 
@@ -83,13 +77,11 @@ def new_buoy_data(selected_buoys, metric, hours):
 
         while i < hours:
             # create the date and time objects
-            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=utc_tz)
+            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=pytz.timezone("UTC"))
 
-            # set the timezone for the datetime object using the 'tzinfo' attribute
-            my_datetime = my_datetime.replace(tzinfo=utc_tz)
+            # convert the datetime to EST according to the streamlit docs
 
-            # convert the datetime to EST
-            est_datetime = my_datetime.astimezone(est_tz)
+            est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
 
             # add datetime column
             df.loc[i, "Time"] = est_datetime
@@ -122,18 +114,15 @@ def new_buoy_data(selected_buoys, metric, hours):
 if len(SelectedBuoys) == 0:
     st.stop()
 
-else: 
-
-    col1, col2, col3 = st.columns(3)
-    with col2:
-        hours_choice = st.radio("How many hours?", [24, 48, 72, 128], horizontal=True)
+else:
     
+    hours_choice = st.radio("How many hours?", [24, 48, 72, 128], horizontal=True)
 
     metric_column = metric_column_mapping[MetricSelect]
-    df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
-
+    new_df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
+    
     # Create the line chart using the filtered dataframe
     # Set the y-axis range to start at 0
-    df = df.sort_values(by=["Time"], ascending=True)
+    new_df = new_df.sort_values(by=["Time"], ascending=True)
 
-    st.line_chart(df, x="Time", y=SelectedBuoys, use_container_width=True)
+    st.line_chart(data=new_df, x="Time", y=SelectedBuoys, use_container_width=True)
