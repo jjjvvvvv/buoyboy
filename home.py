@@ -1,62 +1,118 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import plotly.express as px
+from astropy.io import ascii
+import pytz
+from datetime import datetime
 
 # Load data
-@st.cache
-def load_data():
+@st.cache_data
+def load_data(buoy_ids, metric, hours):
     try:
-        # Load buoy data from NOAA NDBC
-        buoy_data = pd.read_csv('buoy_data.csv')
-        return buoy_data
+        # Create a DataFrame to store the data
+        df = pd.DataFrame()
+        
+        for buoy_id in buoy_ids:
+            # Fetch data from NOAA NDBC webpage
+            data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy_id}_5day.spec")
+            
+            # Create a counter variable
+            i = 0
+            
+            while i < hours:
+                # Create the date and time objects
+                my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=pytz.timezone("UTC"))
+                
+                # Convert the datetime to EST
+                est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
+                
+                # Add datetime column
+                if 'Time' not in df.columns:
+                    df['Time'] = [est_datetime]
+                else:
+                    df.loc[i, 'Time'] = est_datetime
+                
+                # Get metric to display
+                if metric == "Swell Height":
+                    try:
+                        if buoy_id not in df.columns:
+                            df[buoy_id] = [float(data[i][6]) * 3.28084]
+                        else:
+                            df.loc[i, buoy_id] = float(data[i][6]) * 3.28084
+                    except ValueError:
+                        if buoy_id not in df.columns:
+                            df[buoy_id] = [None]
+                        else:
+                            df.loc[i, buoy_id] = None
+                elif metric == "Wave Height":
+                    try:
+                        if buoy_id not in df.columns:
+                            df[buoy_id] = [float(data[i][5]) * 3.28084]
+                        else:
+                            df.loc[i, buoy_id] = float(data[i][5]) * 3.28084
+                    except ValueError:
+                        if buoy_id not in df.columns:
+                            df[buoy_id] = [None]
+                        else:
+                            df.loc[i, buoy_id] = None
+                elif metric == "Swell Period":
+                    try:
+                        if buoy_id not in df.columns:
+                            df[buoy_id] = [pd.to_numeric(data[i][7], errors="coerce")]
+                        else:
+                            df.loc[i, buoy_id] = pd.to_numeric(data[i][7], errors="coerce")
+                    except ValueError:
+                        pass
+                elif metric == "Swell Direction":
+                    if buoy_id not in df.columns:
+                        df[buoy_id] = [data[i][14]]
+                    else:
+                        df.loc[i, buoy_id] = data[i][14]
+                
+                # Increment i and get next hour's reading
+                i += 1
+        
+        if df.isna().any().any():
+            st.warning("Invalid value(s) found for buoy(s) in this report. These values do not display.")
+        
+        return df
     except Exception as e:
         st.error(f"Error loading data: {e}")
         return None
 
 # Process data
-def process_data(buoy_data):
+def process_data(buoy_data, metrics, time_frame):
     try:
-        # Handle missing values and outliers
-        buoy_data = buoy_data.dropna()
-        buoy_data = buoy_data[(np.abs(buoy_data['wind_speed']) < 50) & (np.abs(buoy_data['wave_height']) < 20)]
-        return buoy_data
+        # Filter data by time frame
+        time_frame_hours = int(time_frame.split(' hours')[0])  # Convert time frame to integer
+        buoy_data = buoy_data.tail(time_frame_hours)
+        
+        # Check if data is available for selected buoys and time frame
+        if buoy_data.empty:
+            st.error("No data available for selected buoys and time frame")
+            return None
+        
+        # Plot the selected metric
+        for metric in metrics:
+            ax = buoy_data[metric].plot(figsize=(10, 6))
+            st.pyplot(ax.get_figure())
+
     except Exception as e:
         st.error(f"Error processing data: {e}")
         return None
 
-# Create visualizations
-def create_visualizations(buoy_data):
-    try:
-        # Wind speed plot
-        wind_speed_fig = px.line(buoy_data, x='timestamp', y='wind_speed', title='Wind Speed')
-        wind_speed_fig.update_layout(yaxis_range=[0, 50])
-
-        # Wave height plot
-        wave_height_fig = px.line(buoy_data, x='timestamp', y='wave_height', title='Wave Height')
-        wave_height_fig.update_layout(yaxis_range=[0, 20])
-
-        return wind_speed_fig, wave_height_fig
-    except Exception as e:
-        st.error(f"Error creating visualizations: {e}")
-        return None, None
-
 # Main app
 def main():
-    buoy_data = load_data()
-    if buoy_data is not None:
-        buoy_data = process_data(buoy_data)
-        if buoy_data is not None:
-            wind_speed_fig, wave_height_fig = create_visualizations(buoy_data)
-            if wind_speed_fig and wave_height_fig:
-                st.plotly_chart(wind_speed_fig)
-                st.plotly_chart(wave_height_fig)
-            else:
-                st.error("Error creating visualizations")
-        else:
-            st.error("Error processing data")
-    else:
-        st.error("Error loading data")
-
-if __name__ == "__main__":
-    main()
+    # Create a dropdown menu for buoy selection
+    buoy_list = pd.read_csv('buoylist.csv')
+    buoys = buoy_list['buoy'].unique()
+    selected_buoys = st.multiselect('Select buoys', buoys, default=buoys[:2])
+    
+    # Create a dropdown menu for metric selection
+    metrics = ['Swell Height', 'Wave Height', 'Swell Period', 'Swell Direction']
+    selected_metrics = st.multiselect('Select metrics', metrics, default=metrics[:2])
+    
+    # Create radio buttons for time frame selection
+    time_frames = ['24 hours', '48 hours', '72 hours', '128 hours']
+    time_frame = st.radio('Select a time frame', time_frames)
+    
+    # Load data
