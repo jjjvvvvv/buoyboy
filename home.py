@@ -1,128 +1,62 @@
-"""
-THE BUOYBOY
-https://buoyboy.streamlit.app
-
-"""
-
-from datetime import datetime
 import streamlit as st
-from astropy.io import ascii
 import pandas as pd
-import pytz
+import numpy as np
+import plotly.express as px
 
-st.set_page_config(page_title="The BuoyBoy", page_icon="📡", layout="wide")
+# Load data
+@st.cache
+def load_data():
+    try:
+        # Load buoy data from NOAA NDBC
+        buoy_data = pd.read_csv('buoy_data.csv')
+        return buoy_data
+    except Exception as e:
+        st.error(f"Error loading data: {e}")
+        return None
 
-# TODO: need a way to update buoy list periodically...
+# Process data
+def process_data(buoy_data):
+    try:
+        # Handle missing values and outliers
+        buoy_data = buoy_data.dropna()
+        buoy_data = buoy_data[(np.abs(buoy_data['wind_speed']) < 50) & (np.abs(buoy_data['wave_height']) < 20)]
+        return buoy_data
+    except Exception as e:
+        st.error(f"Error processing data: {e}")
+        return None
 
-df = pd.read_csv("buoylist.csv")
+# Create visualizations
+def create_visualizations(buoy_data):
+    try:
+        # Wind speed plot
+        wind_speed_fig = px.line(buoy_data, x='timestamp', y='wind_speed', title='Wind Speed')
+        wind_speed_fig.update_layout(yaxis_range=[0, 50])
 
-# TODO: create a dictionary to map buoys to their names
+        # Wave height plot
+        wave_height_fig = px.line(buoy_data, x='timestamp', y='wave_height', title='Wave Height')
+        wave_height_fig.update_layout(yaxis_range=[0, 20])
 
-buoy_name_mapping = {}
-for index, row in df.iterrows():
-    buoy_name_mapping[row["buoy"]] = row["name"]
+        return wind_speed_fig, wave_height_fig
+    except Exception as e:
+        st.error(f"Error creating visualizations: {e}")
+        return None, None
 
-metric_column_mapping = {
-    "Swell Height": "SwH",
-    "Wave Height": "WvH",
-    "Swell Period": "SwP",
-    "Swell Direction": "MWD",
-}
+# Main app
+def main():
+    buoy_data = load_data()
+    if buoy_data is not None:
+        buoy_data = process_data(buoy_data)
+        if buoy_data is not None:
+            wind_speed_fig, wave_height_fig = create_visualizations(buoy_data)
+            if wind_speed_fig and wave_height_fig:
+                st.plotly_chart(wind_speed_fig)
+                st.plotly_chart(wave_height_fig)
+            else:
+                st.error("Error creating visualizations")
+        else:
+            st.error("Error processing data")
+    else:
+        st.error("Error loading data")
 
-# makes a list of strings equal to 'buoy' + : + 'name'
-buoy_name_list = [
-    name + "(" + str(buoy) + ")" for buoy, name in buoy_name_mapping.items()
-]
-
-# LAYOUT 
-
-col1, col2 = st.columns(2)
-
-with col1:
-    SelectedBuoys = st.multiselect(
-        "Which buoy(s) do you want to view?", buoy_name_list, default=None
-    )
-    if len(SelectedBuoys) == 0:
-        st.warning("Please choose one or more buoys")
-
-# creates a list of selected buoys based on the user's selection
-SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
-
-with col2:
-    MetricSelect = st.radio(
-        "What do you want to measure?",
-        list(metric_column_mapping.keys())
-    )
-
-
-def new_buoy_data(selected_buoys, metric, hours):
-    """
-    Process the selected buoys and metric to retrieve new buoy data.
-
-    Parameters:
-        selected_buoys (Any): The selected buoys to process.
-        metric (Any): The metric to use for retrieving the data.
-
-    Returns:
-        DataFrame: The resulting DataFrame containing the new buoy data.
-    """
-    df = pd.DataFrame()
-
-    for buoy in selected_buoys:
-        data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
-
-        # create a counter variable
-
-        i = 0
-
-        while i < hours:
-            # create the date and time objects
-            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=pytz.timezone("UTC"))
-
-            # convert the datetime to EST according to the streamlit docs
-
-            est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
-
-            # add datetime column
-            df.loc[i, "Time"] = est_datetime
-
-            # get metric to display
-            if metric == "Swell Height":
-                df.loc[i, buoy] = data[i][6] * int(3.28084)
-            elif metric == "Wave Height":
-                df.loc[i, buoy] = data[i][5] * int(3.28084)
-            elif metric == "Swell Period":
-                try:
-                    df.loc[i, buoy] = pd.to_numeric(data[i][7], errors="coerce")
-                except ValueError:
-                    pass
-            elif metric == "Swell Direction":
-                df.loc[i, buoy] = data[i][14]
-
-            # increment i and get next hour's reading
-            i += 1
-
-    if df.isna().any().any():
-        st.warning(
-            "Invalid value(s) found for buoy(s) in this report. These values do not display."
-        )
-
-    return df
-
-
-
-if len(SelectedBuoys) == 0:
-    st.stop()
-
-else:
-    
-    hours_choice = st.radio("How many hours?", [24, 48, 72, 128], horizontal=True)
-
-    metric_column = metric_column_mapping[MetricSelect]
-    new_df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
-    
-    # Create the line chart using the filtered dataframe
-    # Set the y-axis range to start at 0
-    new_df = new_df.sort_values(by=["Time"], ascending=True)
-
-    st.line_chart(data=new_df, x="Time", y=SelectedBuoys, use_container_width=True)
+if __name__ == "__main__":
+    main()
