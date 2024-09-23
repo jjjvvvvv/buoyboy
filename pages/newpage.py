@@ -105,12 +105,16 @@ def map_buoy_metrics(df, metric):
     Maps the relevant columns for the selected metric (swell height, wave height, etc.)
     and returns a DataFrame containing only the relevant data for that metric.
     """
-    metric_column = metric_column_mapping[metric]
+    metric_column = metric_column_mapping.get(metric, None)
+    
     if metric_column in df.columns:
+        # Return the DataFrame with the Time and metric column
         return df[['Time', metric_column]].rename(columns={metric_column: metric})
     else:
-        st.warning(f"Column for {metric} not found.")
-        return pd.DataFrame()  # Return empty DataFrame if column is missing
+        # If the column is not found, show a warning and print available columns for debugging
+        st.warning(f"Column '{metric_column}' for '{metric}' not found in the data.")
+        st.write("Available Columns:", df.columns)  # Print available columns for debugging
+        return pd.DataFrame()  # Return an empty DataFrame if the column is missing
 
 # Fetch and process data for each selected buoy
 def new_buoy_data(selected_buoys, metric, hours):
