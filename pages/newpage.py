@@ -4,11 +4,11 @@ from astropy.io import ascii
 import pandas as pd
 import pytz
 
-st.set_page_config(page_title="The BuoyBoy", page_icon="", layout="wide")
-
-df = pd.read_csv("buoylist.csv")
+st.set_page_config(page_title="Buoy Data Page", layout="wide")
 
 # Buoy and metric mappings
+df = pd.read_csv("buoylist.csv")
+
 buoy_name_mapping = {}
 for index, row in df.iterrows():
     buoy_name_mapping[row["buoy"]] = row["name"]
@@ -71,7 +71,8 @@ hours_choice = st.session_state.hours_choice
 # Process the selected buoys
 SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
 
-# Function to parse buoy data (mimicking newestpage.py approach)
+
+# Function to parse buoy data (adjusted for datetime creation and debugging)
 def parse_buoy_data(buoy_id):
     """
     Ingests the buoy data from the 5-day spec file for a given buoy and returns a DataFrame
@@ -95,79 +96,33 @@ def parse_buoy_data(buoy_id):
     st.write("Columns in the DataFrame:", df.columns)
 
     # Check if necessary date and time columns exist (adjusting for the prefix in '#YY')
-    required_columns = ['#YY', 'MM', 'DD', 'hh', 'mm']
+    required_columns = ['YY', 'MM', 'DD', 'hh', 'mm']
     if set(required_columns).issubset(df.columns):
         try:
             # Combine the year, month, day, hour, and minute columns into a single 'Time' column
-            df['Time'] = pd.to_datetime(df[['#YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'#YY': 'year'}))
+            df['Time'] = pd.to_datetime(df[['YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'YY': 'year'}))
             df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
-            df.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
-        except Exception as e:
-            st.error(f"Error creating 'Time' column: {e}")
-    else:
-        st.warning(f"Date/time columns (#YY, MM, DD, hh, mm) not found for buoy {buoy_id}.")
-        st.write("Available Columns:", df.columns)  # Debugging: print the available columns
-    
-    return df
-    
-    # Convert the astropy table to pandas for easier manipulation
-    df = data.to_pandas()
-
-    # Check if necessary date and time columns exist (adjusting for the prefix in '#YY')
-    required_columns = ['#YY', 'MM', 'DD', 'hh', 'mm']
-    if set(required_columns).issubset(df.columns):
-        try:
-            # Combine the year, month, day, hour, and minute columns into a single 'Time' column
-            df['Time'] = pd.to_datetime(df[['#YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'#YY': 'year'}))
-            df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
-            df.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
-        except Exception as e:
-            st.error(f"Error creating 'Time' column: {e}")
-    else:
-        st.warning(f"Date/time columns (#YY, MM, DD, hh, mm) not found for buoy {buoy_id}.")
-        st.write("Available Columns:", df.columns)
-    
-    return df
-    
-    # Convert the astropy table to pandas for easier manipulation
-    df = data.to_pandas()
-
-    # Check if necessary date and time columns exist
-    required_columns = ['#YY', 'MM', 'DD', 'hh', 'mm']
-    if set(required_columns).issubset(df.columns):
-        try:
-            # Combine the year, month, day, hour, and minute columns into a single 'Time' column
-            df['Time'] = pd.to_datetime(df[['#YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'#YY': 'year'}))
-            df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
-            df.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
+            df.drop(columns=['YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
         except Exception as e:
             st.error(f"Error creating 'Time' column: {e}")
     else:
         st.warning(f"Date/time columns (YY, MM, DD, hh, mm) not found for buoy {buoy_id}.")
-        st.write("Available Columns:", df.columns)
-    
-    return df
-    
-    # Convert the astropy table to pandas for easier manipulation
-    df = data.to_pandas()
-
-    # Adjust for timezone and timestamp creation
-    if {'#YY', 'MM', 'DD', 'hh', 'mm'}.issubset(df.columns):
-        df['Time'] = df.apply(lambda row: datetime(row['#YY'], row['MM'], row['DD'], row['hh'], row['mm'], tzinfo=pytz.timezone("UTC")), axis=1)
-        df['Time'] = df['Time'].apply(lambda x: x.astimezone(pytz.timezone("US/Eastern")))
-        df.drop(['#YY', 'MM', 'DD', 'hh', 'mm'], axis=1, inplace=True)
-    else:
-        st.warning(f"Date/time columns not found for buoy {buoy_id}.")
+        st.write("Available Columns:", df.columns)  # Debugging: print the available columns
     
     return df
 
-# Automatically map the buoy data to the relevant columns
+
+# Function to map buoy metrics
 def map_buoy_metrics(df, metric):
     """
     Maps the relevant columns for the selected metric (swell height, wave height, etc.)
     and returns a DataFrame containing only the relevant data for that metric.
     """
     metric_column = metric_column_mapping.get(metric, None)
+    
+    # Debug: Show the 'Time' column after creation
+    if 'Time' in df.columns:
+        st.write("Sample of 'Time' column:", df['Time'].head())
     
     if metric_column in df.columns:
         # Return the DataFrame with the Time and metric column
@@ -178,22 +133,48 @@ def map_buoy_metrics(df, metric):
         st.write("Available Columns:", df.columns)  # Print available columns for debugging
         return pd.DataFrame()  # Return an empty DataFrame if the column is missing
 
+
 # Fetch and process data for each selected buoy
 def new_buoy_data(selected_buoys, metric, hours):
     df_final = pd.DataFrame()
 
     for buoy in selected_buoys:
+        # Fetch the buoy data
         df_buoy = parse_buoy_data(buoy)
+        
         if not df_buoy.empty:
+            # Iterate over the rows and transform the date and time columns
+            i = 0
+            while i < hours:
+                # Create the datetime object from the parsed columns
+                try:
+                    my_datetime = datetime(
+                        df_buoy.iloc[i]['YY'],  # Year
+                        df_buoy.iloc[i]['MM'],  # Month
+                        df_buoy.iloc[i]['DD'],  # Day
+                        df_buoy.iloc[i]['hh'],  # Hour
+                        df_buoy.iloc[i]['mm'],  # Minute
+                        tzinfo=pytz.UTC  # Assuming data is in UTC
+                    )
+                    my_datetime += timedelta(minutes=30)  # Add 30 minutes
+                    est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
+                    
+                    # Explicitly cast 'Time' to datetime64[ns] format
+                    df_buoy.loc[i, "Time"] = pd.to_datetime(est_datetime)
+                except Exception as e:
+                    st.error(f"Error processing date and time for buoy {buoy}: {e}")
+                
+                i += 2  # Increment by 2 (30-minute intervals)
+            
             df_buoy = map_buoy_metrics(df_buoy, metric)
-            # Keep only the last 'hours' worth of data
             df_buoy = df_buoy.tail(hours)
             df_final = pd.concat([df_final, df_buoy], axis=1)
-    
+
     if df_final.isna().any().any():
         st.warning("Invalid value(s) found in this report. These values do not display.")
     
     return df_final
+
 
 # Display the data for selected buoys and metrics
 if len(SelectedBuoys) > 0:
