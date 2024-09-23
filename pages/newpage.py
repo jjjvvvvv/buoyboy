@@ -72,7 +72,7 @@ hours_choice = st.session_state.hours_choice
 SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
 
 
-# Function to parse buoy data (adjusted for datetime creation and debugging)
+# Function to parse buoy data (adjusted for datetime creation and missing data handling)
 def parse_buoy_data(buoy_id):
     """
     Ingests the buoy data from the 5-day spec file for a given buoy and returns a DataFrame
@@ -83,7 +83,6 @@ def parse_buoy_data(buoy_id):
     try:
         # Read the data from the URL using astropy's ascii module
         data = ascii.read(url, header_start=0, data_start=2)  # Use the first row as headers, skip the second row
-        st.write(f"Buoy {buoy_id} Column Names:", data.colnames)  # Debugging: display column names
     except Exception as e:
         st.error(f"Error loading data for buoy {buoy_id}: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on error
@@ -91,23 +90,23 @@ def parse_buoy_data(buoy_id):
     # Convert the astropy table to pandas for easier manipulation
     df = data.to_pandas()
 
-    # Debug: Show the first few rows of data and the column names
-    st.write(f"Sample data for buoy {buoy_id}:", df.head())
-    st.write("Columns in the DataFrame:", df.columns)
-
     # Check if necessary date and time columns exist (adjusting for the prefix in '#YY')
     required_columns = ['YY', 'MM', 'DD', 'hh', 'mm']
     if set(required_columns).issubset(df.columns):
+        # Drop rows with missing values in any of the required columns
+        df.dropna(subset=required_columns, inplace=True)
+
         try:
-            # Combine the year, month, day, hour, and minute columns into a single 'Time' column
-            df['Time'] = pd.to_datetime(df[['YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'YY': 'year'}))
-            df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
-            df.drop(columns=['YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
+            # Check if 'Time' column already exists to avoid duplicates
+            if 'Time' not in df.columns:
+                # Combine the year, month, day, hour, and minute columns into a single 'Time' column
+                df['Time'] = pd.to_datetime(df[['YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'YY': 'year'}))
+                df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
+                df.drop(columns=['YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
         except Exception as e:
             st.error(f"Error creating 'Time' column: {e}")
     else:
         st.warning(f"Date/time columns (YY, MM, DD, hh, mm) not found for buoy {buoy_id}.")
-        st.write("Available Columns:", df.columns)  # Debugging: print the available columns
     
     return df
 
@@ -120,17 +119,12 @@ def map_buoy_metrics(df, metric):
     """
     metric_column = metric_column_mapping.get(metric, None)
     
-    # Debug: Show the 'Time' column after creation
-    if 'Time' in df.columns:
-        st.write("Sample of 'Time' column:", df['Time'].head())
-    
-    if metric_column in df.columns:
+    if 'Time' in df.columns and metric_column in df.columns:
         # Return the DataFrame with the Time and metric column
         return df[['Time', metric_column]].rename(columns={metric_column: metric})
     else:
         # If the column is not found, show a warning and print available columns for debugging
         st.warning(f"Column '{metric_column}' for '{metric}' not found in the data.")
-        st.write("Available Columns:", df.columns)  # Print available columns for debugging
         return pd.DataFrame()  # Return an empty DataFrame if the column is missing
 
 
@@ -143,28 +137,25 @@ def new_buoy_data(selected_buoys, metric, hours):
         df_buoy = parse_buoy_data(buoy)
         
         if not df_buoy.empty:
-            # Iterate over the rows and transform the date and time columns
-            i = 0
-            while i < hours:
-                # Create the datetime object from the parsed columns
-                try:
-                    my_datetime = datetime(
-                        df_buoy.iloc[i]['YY'],  # Year
-                        df_buoy.iloc[i]['MM'],  # Month
-                        df_buoy.iloc[i]['DD'],  # Day
-                        df_buoy.iloc[i]['hh'],  # Hour
-                        df_buoy.iloc[i]['mm'],  # Minute
-                        tzinfo=pytz.UTC  # Assuming data is in UTC
-                    )
-                    my_datetime += timedelta(minutes=30)  # Add 30 minutes
-                    est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
-                    
-                    # Explicitly cast 'Time' to datetime64[ns] format
-                    df_buoy.loc[i, "Time"] = pd.to_datetime(est_datetime)
-                except Exception as e:
-                    st.error(f"Error processing date and time for buoy {buoy}: {e}")
-                
-                i += 2  # Increment by 2 (30-minute intervals)
+            # Only create the 'Time' column if it's not already there (avoiding duplicates)
+            if 'Time' not in df_buoy.columns:
+                for i in range(hours):
+                    try:
+                        my_datetime = datetime(
+                            df_buoy.iloc[i]['YY'],  # Year
+                            df_buoy.iloc[i]['MM'],  # Month
+                            df_buoy.iloc[i]['DD'],  # Day
+                            df_buoy.iloc[i]['hh'],  # Hour
+                            df_buoy.iloc[i]['mm'],  # Minute
+                            tzinfo=pytz.UTC  # Assuming data is in UTC
+                        )
+                        my_datetime += timedelta(minutes=30)  # Add 30 minutes
+                        est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
+                        
+                        # Explicitly cast 'Time' to datetime64[ns] format
+                        df_buoy.loc[i, "Time"] = pd.to_datetime(est_datetime)
+                    except Exception as e:
+                        st.error(f"Error processing date and time for buoy {buoy}: {e}")
             
             df_buoy = map_buoy_metrics(df_buoy, metric)
             df_buoy = df_buoy.tail(hours)
