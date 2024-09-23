@@ -75,16 +75,36 @@ SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
 def parse_buoy_data(buoy_id):
     """
     Ingests the buoy data from the 5-day spec file for a given buoy and returns a DataFrame
-    with the parsed data.
+    with the parsed data, ensuring the 'Time' column is properly created.
     """
     url = f"https://www.ndbc.noaa.gov/data/5day2/{buoy_id}_5day.spec"
     
     try:
         # Read the data from the URL using astropy's ascii module
         data = ascii.read(url, header_start=0, data_start=2)  # Use the first row as headers, skip the second row
+        st.write(f"Buoy {buoy_id} Column Names:", data.colnames)  # Debugging: display column names
     except Exception as e:
         st.error(f"Error loading data for buoy {buoy_id}: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on error
+    
+    # Convert the astropy table to pandas for easier manipulation
+    df = data.to_pandas()
+
+    # Check if necessary date and time columns exist
+    required_columns = ['#YY', 'MM', 'DD', 'hh', 'mm']
+    if set(required_columns).issubset(df.columns):
+        try:
+            # Combine the year, month, day, hour, and minute columns into a single 'Time' column
+            df['Time'] = pd.to_datetime(df[['#YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'#YY': 'year'}))
+            df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
+            df.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
+        except Exception as e:
+            st.error(f"Error creating 'Time' column: {e}")
+    else:
+        st.warning(f"Date/time columns (YY, MM, DD, hh, mm) not found for buoy {buoy_id}.")
+        st.write("Available Columns:", df.columns)
+    
+    return df
     
     # Convert the astropy table to pandas for easier manipulation
     df = data.to_pandas()
