@@ -48,7 +48,7 @@ def map_buoy_metrics(df, metric_mapping):
     return mapped_df
 
 # URL for example buoy data (5day.spec file)
-url = "https://www.ndbc.noaa.gov/data/5day2/46042_5day.spec"
+url = "https://www.ndbc.noaa.gov/data/5day2/44025_5day.spec"
 
 # Parse the buoy data
 df, headers = parse_buoy_data(url)
