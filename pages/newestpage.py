@@ -36,7 +36,7 @@ def parse_buoy_data(url):
     return df
 
 # URL for example buoy data (5day.spec file)
-url = "https://www.ndbc.noaa.gov/data/5day2/46042_5day.spec"
+url = "https://www.ndbc.noaa.gov/data/5day2/44025_5day.spec"
 
 # Parse the buoy data
 df = parse_buoy_data(url)
