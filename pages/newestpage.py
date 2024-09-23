@@ -1,122 +1,71 @@
-from datetime import datetime, timedelta
 import streamlit as st
 from astropy.io import ascii
 import pandas as pd
+from datetime import datetime, timedelta
 import pytz
 
-st.set_page_config(page_title="Buoy Data Page", layout="wide")
+# Flexible parsing function to automatically map metrics from the 5day.spec file
+def parse_buoy_data(url):
+    """
+    Ingests the buoy data from the given URL and returns a DataFrame
+    with the parsed data, using dynamic column mapping based on the headers.
+    """
+    # Read the data from the URL using astropy's ascii module
+    try:
+        data = ascii.read(url)
+    except Exception as e:
+        st.error(f"Error loading data from {url}: {e}")
+        return pd.DataFrame()  # Return an empty DataFrame on error
+    
+    # Inspect the first few rows to understand the structure
+    headers = data.colnames
+    # Convert the astropy table to pandas for easier manipulation
+    df = data.to_pandas()
 
-# Set up the buoy and metric selection (same as in home.py)
-df = pd.read_csv("buoylist.csv")
+    # Adjust for timezone and timestamp creation
+    df['Time'] = df.apply(lambda row: datetime(row['col1'], row['col2'], row['col3'], row['col4'], row['col5'], tzinfo=pytz.timezone("UTC")), axis=1)
+    df['Time'] = df['Time'].apply(lambda x: x.astimezone(pytz.timezone("US/Eastern")))
 
-buoy_name_mapping = {}
-for index, row in df.iterrows():
-    buoy_name_mapping[row["buoy"]] = row["name"]
+    # Drop columns that aren't needed
+    df.drop(['col1', 'col2', 'col3', 'col4', 'col5'], axis=1, inplace=True)
 
+    return df, headers
+
+# Automatically map the buoy data to the relevant columns
+def map_buoy_metrics(df, metric_mapping):
+    """
+    Maps the relevant columns for the metrics (swell height, wave height, etc.)
+    and returns a DataFrame containing only the relevant data.
+    """
+    mapped_df = pd.DataFrame()
+    for metric, column_name in metric_mapping.items():
+        if column_name in df.columns:
+            mapped_df[metric] = df[column_name]
+        else:
+            st.warning(f"Column {column_name} not found in the dataset.")
+            mapped_df[metric] = None  # Fill with None if column not found
+
+    return mapped_df
+
+# URL for example buoy data (5day.spec file)
+url = "https://www.ndbc.noaa.gov/data/5day2/46042_5day.spec"
+
+# Parse the buoy data
+df, headers = parse_buoy_data(url)
+
+# Define the metric mapping (dynamic mapping from column names)
 metric_column_mapping = {
-    "Swell Height": "SwH",
-    "Wave Height": "WvH",
-    "Swell Period": "SwP",
-    "Swell Direction": "MWD",
+    "Swell Height": "col6",  # Assuming this is the correct column for Swell Height
+    "Wave Height": "col5",   # Assuming this is the correct column for Wave Height
+    "Swell Period": "col7",  # Assuming this is the correct column for Swell Period
+    "Swell Direction": "col14" # Assuming this is the correct column for Swell Direction
 }
 
-buoy_name_list = [
-    name + "(" + str(buoy) + ")" for buoy, name in buoy_name_mapping.items()
-]
+# Map the relevant metrics
+mapped_df = map_buoy_metrics(df, metric_column_mapping)
 
-col1, col2 = st.columns(2)
-
-with col1:
-    SelectedBuoys = st.multiselect(
-        "Which buoy(s) do you want to view?", buoy_name_list, default=None
-    )
-
-    if len(SelectedBuoys) == 0:
-        st.warning("Please choose one or more buoys")
-
-with col2:
-    MetricSelect = st.radio(
-        "What do you want to measure?",
-        list(metric_column_mapping.keys())
-    )
-
-col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
-
-with col1:
-    st.write("")  # Empty column
-with col2:
-    if st.button("1 Day"):
-        st.session_state.hours_choice = 48
-with col3:
-    if st.button("2 Days"):
-        st.session_state.hours_choice = 96
-with col4:
-    if st.button("3 Days"):
-        st.session_state.hours_choice = 144
-with col5:
-    if st.button("4 Days"):
-        st.session_state.hours_choice = 192
-with col6:
-    if st.button("5 Days"):
-        st.session_state.hours_choice = 238
-with col7:
-    st.write("")  # Empty column
-
-# Initialize hours_choice if it's not already set
-if "hours_choice" not in st.session_state:
-    st.session_state.hours_choice = 48
-
-hours_choice = st.session_state.hours_choice
-
-# Process the selected buoys
-SelectedBuoys = [buoy.split("(")[1].split(")")[0] for buoy in SelectedBuoys]
-
-# Define the function to retrieve buoy data
-def new_buoy_data(selected_buoys, metric, hours):
-    df = pd.DataFrame()
-
-    for buoy in selected_buoys:
-        # Fetch data from the 5-day buoy source
-        data = ascii.read(f"https://www.ndbc.noaa.gov/data/5day2/{buoy}_5day.spec")
-
-        i = 0
-        while i < hours:
-            my_datetime = datetime(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], tzinfo=pytz.timezone("UTC"))
-            my_datetime += timedelta(minutes=30)  # add 30 minutes
-            est_datetime = my_datetime.astimezone(pytz.timezone("US/Eastern"))
-
-            df.loc[i, "Time"] = est_datetime
-
-            if metric == "Swell Height":
-                try:
-                    df.loc[i, buoy] = float(data[i][6]) * 3.28084  # Convert from meters to feet
-                except ValueError:
-                    df.loc[i, buoy] = None
-            elif metric == "Wave Height":
-                try:
-                    df.loc[i, buoy] = float(data[i][5]) * 3.28084  # Convert from meters to feet
-                except ValueError:
-                    df.loc[i, buoy] = None
-            elif metric == "Swell Period":
-                try:
-                    df.loc[i, buoy] = pd.to_numeric(data[i][7], errors="coerce")
-                except ValueError:
-                    df.loc[i, buoy] = None
-            elif metric == "Swell Direction":
-                df.loc[i, buoy] = data[i][14]
-
-            i += 2  # increment by 2 (30-minute intervals)
-
-    if df.isna().any().any():
-        st.warning("Invalid value(s) found in this report. These values do not display.")
-
-    return df
-
-# Display the data
-if len(SelectedBuoys) > 0:
-    metric_column = metric_column_mapping[MetricSelect]
-    new_df = new_buoy_data(SelectedBuoys, MetricSelect, hours_choice)
-
-    new_df = new_df.sort_values(by=["Time"], ascending=True)
-
-    st.line_chart(data=new_df, x="Time", y=SelectedBuoys, use_container_width=True)
+# Display the resulting data in Streamlit
+if not mapped_df.empty:
+    st.dataframe(mapped_df)
+else:
+    st.warning("No data available for the selected metrics.")
