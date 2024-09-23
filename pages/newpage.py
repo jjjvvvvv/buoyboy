@@ -90,6 +90,29 @@ def parse_buoy_data(buoy_id):
     # Convert the astropy table to pandas for easier manipulation
     df = data.to_pandas()
 
+    # Debug: Show the first few rows of data and the column names
+    st.write(f"Sample data for buoy {buoy_id}:", df.head())
+    st.write("Columns in the DataFrame:", df.columns)
+
+    # Check if necessary date and time columns exist (adjusting for the prefix in '#YY')
+    required_columns = ['#YY', 'MM', 'DD', 'hh', 'mm']
+    if set(required_columns).issubset(df.columns):
+        try:
+            # Combine the year, month, day, hour, and minute columns into a single 'Time' column
+            df['Time'] = pd.to_datetime(df[['#YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'#YY': 'year'}))
+            df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')  # Convert to Eastern time
+            df.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'], inplace=True)  # Drop the original columns
+        except Exception as e:
+            st.error(f"Error creating 'Time' column: {e}")
+    else:
+        st.warning(f"Date/time columns (#YY, MM, DD, hh, mm) not found for buoy {buoy_id}.")
+        st.write("Available Columns:", df.columns)  # Debugging: print the available columns
+    
+    return df
+    
+    # Convert the astropy table to pandas for easier manipulation
+    df = data.to_pandas()
+
     # Check if necessary date and time columns exist (adjusting for the prefix in '#YY')
     required_columns = ['#YY', 'MM', 'DD', 'hh', 'mm']
     if set(required_columns).issubset(df.columns):
