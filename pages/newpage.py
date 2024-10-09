@@ -78,7 +78,7 @@ def parse_buoy_data(buoy_id):
     Ingests the buoy data from the 5-day spec file for a given buoy and returns a DataFrame
     with the parsed data, ensuring the 'Time' column is properly created.
     """
-    url = f"https://www.ndbc.noaa.gov/data/5day2/{buoy_id}_5day.spec"
+    url = f"https://www.ndbc.noaa.gov/data/realtime2/{buoy_id}.spec"
     
     try:
         # Read the data from the URL using astropy's ascii module
