@@ -14,11 +14,11 @@ def parse_buoy_data(url):
         # Read the data from the URL using astropy's ascii module
         data = ascii.read(url, header_start=0, data_start=2)  # Use the first row as headers, skip the second row
         st.write("Column Names:", data.colnames)  # Debugging: display column names in the app
-        
+
     except Exception as e:
         st.error(f"Error loading data from {url}: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on error
-    
+
     # Convert the astropy table to pandas for easier manipulation
     df = data.to_pandas()
 
@@ -26,10 +26,14 @@ def parse_buoy_data(url):
     st.write("Sample Data:", df.head())  # Display the first few rows for inspection
 
     # Adjust for timezone and timestamp creation
-    if {'#YY', 'MM', 'DD', 'hh', 'mm'}.issubset(df.columns):
-        df['Time'] = df.apply(lambda row: datetime(row['#YY'], row['MM'], row['DD'], row['hh'], row['mm'], tzinfo=pytz.timezone("UTC")), axis=1)
-        df['Time'] = df['Time'].apply(lambda x: x.astimezone(pytz.timezone("US/Eastern")))
-        df.drop(['#YY', 'MM', 'DD', 'hh', 'mm'], axis=1, inplace=True)
+    if {'YY', 'MM', 'DD', 'hh', 'mm'}.issubset(df.columns):
+        try:
+            # Combine date and time columns into a 'Time' column
+            df['Time'] = pd.to_datetime(df[['YY', 'MM', 'DD', 'hh', 'mm']].rename(columns={'YY': 'year'}))
+            df['Time'] = df['Time'].dt.tz_localize('UTC').dt.tz_convert('US/Eastern')
+            df.drop(['YY', 'MM', 'DD', 'hh', 'mm'], axis=1, inplace=True)
+        except Exception as e:
+            st.error(f"Error creating 'Time' column: {e}")
     else:
         st.warning("Date/time columns (YY, MM, DD, hh, mm) not found in data.")
 
@@ -66,10 +70,13 @@ def map_buoy_metrics(df, metric_mapping):
     return mapped_df
 
 # Map the relevant metrics
-mapped_df = map_buoy_metrics(df, metric_column_mapping)
+if not df.empty:
+    mapped_df = map_buoy_metrics(df, metric_column_mapping)
 
-# Display the resulting data in Streamlit
-if not mapped_df.empty:
-    st.dataframe(mapped_df)
+    # Display the resulting data in Streamlit
+    if not mapped_df.empty:
+        st.dataframe(mapped_df)
+    else:
+        st.warning("No data available for the selected metrics.")
 else:
-    st.warning("No data available for the selected metrics.")
+    st.warning("No data available from the source.")
